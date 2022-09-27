@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 16:16:22 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 23:35:22 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	copy_mutex(t_philos *philos, int i)
 	philos->mans[i].id = i + 1;
 	philos->mans[i].philos = (void *)philos;
 	philos->mans[i].mutex_right = &(philos->mans[i].mutex_forks);
+	philos->mans[i].timestamp_eating = philos->boot_time;
 	if (i > 0)
 		philos->mans[i].mutex_left = &(philos->mans[i - 1].mutex_forks);
 	if (i == philos->num - 1)
@@ -110,7 +111,7 @@ t_philos	*init_philos(int argc, char **argv)
 		pthread_mutex_init(&(philos->mans[i].mutex_forks), NULL);
 		if (errno == EINVAL || errno == ENOMEM)
 			kill_oneself(philos);
-		pthread_mutex_init(&(philos->mans[i].mutex_cnt_eat), NULL);
+		pthread_mutex_init(&(philos->mans[i].mutex_man), NULL);
 		if (errno == EINVAL || errno == ENOMEM)
 			kill_oneself(philos);
 		copy_mutex(philos, i);

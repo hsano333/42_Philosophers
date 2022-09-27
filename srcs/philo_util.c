@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 15:30:20 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 22:37:47 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	diff_time(t_time now, t_time boot_time)
 {
 	size_t	diff;
 	
-	diff = (now.tv_sec - boot_time.tv_sec) * 1000  + (now.tv_usec - boot_time.tv_usec) / 1000;
+	diff = (now.tv_sec - boot_time.tv_sec) * 1000000  + (now.tv_usec - boot_time.tv_usec);
 	return (diff);
 }
 

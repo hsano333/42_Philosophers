@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 16:17:11 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 23:33:25 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_man
 	//t_time			boot_time;
 	t_time			timestamp_eating;
 	pthread_t		thread;
-	pthread_mutex_t mutex_cnt_eat;
+	pthread_mutex_t mutex_man;
 	pthread_mutex_t mutex_forks;
 	pthread_mutex_t *mutex_left;
 	pthread_mutex_t *mutex_right;
@@ -82,5 +82,7 @@ void		set_end_flag(t_philos *philos, int flag);
 int		get_end_flag(t_philos *philos);
 void		increment_eat_cnt(t_man *man);
 size_t		get_eat_cnt(t_man *man);
+t_time		get_eat_time(t_man *man);
+void		set_eat_time(t_man *man);
 
 #endif

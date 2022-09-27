@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 16:22:50 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 22:50:51 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ void	check_death(t_philos *philos)
 		{
 
 			gettimeofday(&time, NULL);
-			time_since_eat = diff_time(time, philos->boot_time);
-			if (time_since_eat > (size_t)philos->time_die )
+			time_since_eat = diff_time(time, philos->mans[i].timestamp_eating);
+			//printf("time_since_eat=%zu\n", time_since_eat);
+			if (time_since_eat > (size_t)philos->time_die * 1000 )
 			{
 				set_end_flag(philos, true);
 				put_logs(&(philos->mans[i]), DIE);
 				wait_exiting_thread(philos);
 				return ;
 			}
-			usleep(10);
+			usleep(500);
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:16:21 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 16:16:49 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 22:38:23 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	put_logs_selected(t_man *man, enum e_strs mode)
 
 	philos = (t_philos *)man->philos;
 	gettimeofday(&now, NULL);
-	diff = diff_time(now, philos->boot_time);
+	diff = diff_time(now, philos->boot_time) / 1000;
 	if (mode == FORKS)
 		printf(" %.8zu %d has taken a fork\n", diff, man->id);
 	else if (mode == EAT)
