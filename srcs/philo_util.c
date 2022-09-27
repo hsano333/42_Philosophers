@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 13:08:30 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 15:30:20 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,19 @@
 
 void	clear_all(t_philos *philos)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
+	pthread_mutex_destroy(&philos->mutex_print);
+	pthread_mutex_destroy(&philos->mutex_check_death);
+	while (i < philos->num)
+		pthread_mutex_destroy(&(philos->mans[i++].mutex_forks));
 	free(philos->mans);
 	free(philos);
 }
 
 void	kill_oneself(t_philos *philos)
 {
-	printf("kill oneself\n");
 	clear_all(philos);
 	exit(EXIT_FAILURE);
 }
@@ -32,12 +35,8 @@ void	kill_oneself(t_philos *philos)
 size_t	diff_time(t_time now, t_time boot_time)
 {
 	size_t	diff;
-	//gettimeofday();
-	//printf("boot_time:%ld:%d\n", boot_time.tv_sec, boot_time.tv_usec);
-	//printf("now:%ld:%d\n", now.tv_sec, now.tv_usec);
+	
 	diff = (now.tv_sec - boot_time.tv_sec) * 1000  + (now.tv_usec - boot_time.tv_usec) / 1000;
-	//printf("diff:%zu\n", diff);
-
 	return (diff);
 }
 
@@ -48,7 +47,8 @@ void	wait_exiting_thread(t_philos *philos)
 	i = 0;
 	while (i < philos->num)
 	{
-		pthread_detach(philos->mans[i].thread);
-
+		//pthread_detach(philos->mans[i].thread);
+		pthread_join(philos->mans[i].thread, NULL);
+		i++;
 	}
 }

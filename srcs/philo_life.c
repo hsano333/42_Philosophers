@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:13:31 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 10:58:34 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 14:32:49 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	philo_eat_odd(t_man *man)
 	t_philos	*philos;
 
 	philos = (t_philos *)man->philos;
+	if (get_death_flag(philos))
+		return ;
 	pthread_mutex_lock(man->mutex_left);
 	put_logs(man, FORKS);
 	pthread_mutex_lock(man->mutex_right);
@@ -32,6 +34,9 @@ void	philo_eat_even(t_man *man)
 {
 	t_philos	*philos;
 
+	philos = (t_philos *)man->philos;
+	if (get_death_flag(philos))
+		return ;
 	philos = (t_philos *)man->philos;
 	pthread_mutex_lock(man->mutex_right);
 	put_logs(man, FORKS);
@@ -49,12 +54,19 @@ void	philo_sleep(t_man *man)
 	t_philos	*philos;
 
 	philos = (t_philos *)man->philos;
+	if (get_death_flag(philos))
+		return ;
 	put_logs(man, SLEEP);
 	usleep(philos->time_slp);
 }
 
 void	philo_think(t_man *man)
 {
+	t_philos	*philos;
+
+	philos = (t_philos *)man->philos;
+	if (get_death_flag(philos))
+		return ;
 	put_logs(man, THINK);
 }
 

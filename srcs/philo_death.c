@@ -6,11 +6,28 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 13:01:56 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 15:30:59 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	set_death_flag(t_philos *philos, int flag)
+{
+	pthread_mutex_lock(&philos->mutex_check_death);
+	philos->death_flag = flag;
+	pthread_mutex_unlock(&philos->mutex_check_death);
+}
+
+int	get_death_flag(t_philos *philos)
+{
+	int	flag;
+
+	pthread_mutex_lock(&philos->mutex_check_death);
+	flag = philos->death_flag;
+	pthread_mutex_unlock(&philos->mutex_check_death);
+	return (flag);
+}
 
 void	check_death(t_philos *philos)
 {
@@ -26,23 +43,15 @@ void	check_death(t_philos *philos)
 		{
 
 			gettimeofday(&time, NULL);
-			//tv_usec
-			//tv_usec
-			//printf("No.1 check death test i=%ld, %u\n", time.tv_sec,  time.tv_usec);
-			//printf("No.2 check death test i=%u\n", time.tv_usec - philos->boot_time.tv_usec);
 			time_since_eat = diff_time(time, philos->boot_time);
-			if (time_since_eat > philos->time_die)
+			if (time_since_eat > (size_t)philos->time_die)
 			{
-				philos->death_flag = true;
+				set_death_flag(philos, true);
 				put_logs(&(philos->mans[i]), DIE);
 				wait_exiting_thread(philos);
-				//pthread_mutex_lock(&philos->mutex_print);
-				//kill_threads();
-
-				//pthread_mutex_lock(&philos->mutex_print);
+				return ;
 			}
-			//printf("i=%d,time_since_eat=%zu\n",i, time_since_eat);
-			usleep(100);
+			usleep(100000);
 			i++;
 		}
 	}

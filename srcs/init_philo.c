@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 12:54:52 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 15:30:36 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 #include "sys/errno.h"
 # include <pthread.h>
 
-static int	has_error(int *error)
+static int	has_error(int *error, int argc)
 {
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < argc - 1)
 	{
 		if (error[i++] == true)
+		{
 			return (true);
+		}
 	}
 	return (false);
 }
@@ -39,19 +41,19 @@ static	t_philos *parse_arg(int argc, char **argv)
 	if (!philos)
 		return (NULL);
 	philos->num = ft_atoi(argv[1], &(error[0]));
-	philos->time_die = ft_atoi(argv[2], &(error[1])) * 1000;
-	philos->time_eat = ft_atoi(argv[3], &(error[2])) * 1000;
-	philos->time_slp = ft_atoi(argv[4], &(error[3])) * 1000;
+	philos->time_die = ft_atoi(argv[2], &(error[1]));
+	philos->time_eat = ft_atoi(argv[3], &(error[2]));
+	philos->time_slp = ft_atoi(argv[4], &(error[3]));
 	philos->must_eat_num = 0;
 	if (argc == 6)
 		philos->must_eat_num = ft_atoi(argv[5], &(error[4]));
 	philos->mans = (t_man *)malloc(sizeof(t_man) * philos->num);
-	if (has_error(error) || !philos->mans || philos->num < 0 \
+	if (has_error(error, argc) || !philos->mans || philos->num < 0 \
 			|| philos->time_die < 0 || philos->time_eat < 0 \
 			|| philos->time_slp < 0 || philos->must_eat_num < 0)
 	{
-		free(philos);
 		free(philos->mans);
+		free(philos);
 		return (NULL);
 	}
 	return (philos);
@@ -76,21 +78,32 @@ static void	copy_mutex(t_philos *philos, int i)
 	//philos->mans[i].boot_time = philos->boot_time;
 }
 
-t_philos	*init_philos(int argc, char **argv)
+static int	set_default_value(t_philos *philos)
 {
-	int			i;
-	t_philos	*philos;
 	t_time		boot_time;
 
-	philos = parse_arg(argc, argv);
-	if (!philos)
-		return (NULL);
 	philos->death_flag = false;
 	gettimeofday(&boot_time, NULL);
 	philos->boot_time = boot_time;
 	pthread_mutex_init(&(philos->mutex_print), NULL);
 	if (errno == EINVAL || errno == ENOMEM)
-		kill_oneself(philos);
+		return (false);
+	pthread_mutex_init(&(philos->mutex_check_death), NULL);
+	if (errno == EINVAL || errno == ENOMEM)
+		return (false);
+	return (true);
+}
+
+t_philos	*init_philos(int argc, char **argv)
+{
+	int			i;
+	t_philos	*philos;
+
+	philos = parse_arg(argc, argv);
+	if (!philos)
+		return (NULL);
+	if (!set_default_value(philos))
+		pthread_mutex_init(&(philos->mutex_check_death), NULL);
 	i = 0;
 	while (i < philos->num)
 	{

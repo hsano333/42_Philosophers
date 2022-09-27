@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 12:57:42 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 15:31:08 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*philo_loop(void *man_arg)
 			philo_eat_odd(man);
 		philo_sleep(man);
 		philo_think(man);
-		if (philos->death_flag)
+		if (get_death_flag(philos))
 			break ;
 	}
 	pthread_exit(0);
@@ -43,9 +43,13 @@ void	create_thread(t_philos *philos)
 	i = 0;
 	while (i < philos->num)
 	{
-		printf("i=%d\n", i);
-		pthread_create(&(philos->mans[i].thread), NULL, philo_loop, (void *)&(philos->mans[i]));
+		if (pthread_create(&(philos->mans[i].thread), NULL, philo_loop, (void *)&(philos->mans[i])))
+		{
+			set_death_flag(philos, true);
+			usleep(1000000);
+			kill_oneself(philos);
+
+		}
 		i++;
 	}
-	printf("after create\n");
 }

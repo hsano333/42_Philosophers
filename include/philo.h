@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 13:01:21 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 15:09:16 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_philos
 	//t_man			*man;
 	t_time		boot_time;
 	pthread_mutex_t	mutex_print;
+	pthread_mutex_t	mutex_check_death;
 }	t_philos;
 
 t_philos	*init_philos(int argc, char **argv);
@@ -74,5 +75,7 @@ void		philo_eat_even(t_man *man);
 void		philo_sleep(t_man *man);
 void		philo_think(t_man *man);
 void		wait_exiting_thread(t_philos *philos);
+void		set_death_flag(t_philos *philos, int flag);
+int		get_death_flag(t_philos *philos);
 
 #endif
