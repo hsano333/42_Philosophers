@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 21:32:05 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 15:30:50 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 01:09:08 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	main(int argc, char **argv)
 	philos = init_philos(argc, argv);
 	if (!philos)
 		return (1);
-	create_thread(philos);
-	check_death(philos);
+	if (create_thread(philos))
+		check_stop(philos);
 	clear_all(philos);
 	return (0);
 }

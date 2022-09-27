@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 00:12:10 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 00:56:47 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ typedef struct s_philos
 }	t_philos;
 
 t_philos	*init_philos(int argc, char **argv);
-void		clear_all(t_philos *philos);
-void		kill_oneself(t_philos *philos);
-void		create_thread(t_philos *philos);
+t_philos	*clear_all(t_philos *philos);
+int			create_thread(t_philos *philos);
 void		check_stop(t_philos *philos);
 size_t		diff_time(t_time now, t_time boot_time);
 void		put_logs(t_man *man, enum e_strs mode);

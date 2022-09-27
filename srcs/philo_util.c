@@ -6,14 +6,14 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 23:57:17 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 00:50:20 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "stdlib.h"
 
-void	clear_all(t_philos *philos)
+t_philos	*clear_all(t_philos *philos)
 {
 	int	i;
 
@@ -24,12 +24,7 @@ void	clear_all(t_philos *philos)
 		pthread_mutex_destroy(&(philos->mans[i++].mutex_forks));
 	free(philos->mans);
 	free(philos);
-}
-
-void	kill_oneself(t_philos *philos)
-{
-	clear_all(philos);
-	exit(EXIT_FAILURE);
+	return (NULL);
 }
 
 size_t	diff_time(t_time now, t_time boot_time)

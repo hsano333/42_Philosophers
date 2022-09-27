@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 23:56:19 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 00:49:17 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	*philo_loop(void *man_arg)
 		if (get_end_flag(philos))
 			break ;
 	}
-	pthread_exit(0);
+	return (NULL);
 }
 
-void	create_thread(t_philos *philos)
+int	create_thread(t_philos *philos)
 {
 	int	i;
 
@@ -43,8 +43,10 @@ void	create_thread(t_philos *philos)
 							philo_loop, (void *)&(philos->mans[i])))
 		{
 			set_end_flag(philos, true);
-			kill_oneself(philos);
+			printf("Error:stop simulation\n");
+			return (false);
 		}
 		i++;
 	}
+	return (true);
 }

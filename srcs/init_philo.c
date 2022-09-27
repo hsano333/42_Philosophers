@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 23:59:30 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 00:49:32 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,14 @@ t_philos	*init_philos(int argc, char **argv)
 	{
 		pthread_mutex_init(&(philos->mans[i].mutex_forks), NULL);
 		if (errno == EINVAL || errno == ENOMEM)
-			kill_oneself(philos);
+			break ;
 		pthread_mutex_init(&(philos->mans[i].mutex_man), NULL);
 		if (errno == EINVAL || errno == ENOMEM)
-			kill_oneself(philos);
+			break ;
 		copy_mutex(philos, i);
 		i++;
 	}
+	if (i != philos->num)
+		philos = clear_all(philos);
 	return (philos);
 }
