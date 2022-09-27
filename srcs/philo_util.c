@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 00:50:20 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 01:36:30 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	wait_exiting_thread(t_philos *philos)
 	i = 0;
 	while (i < philos->num)
 	{
-		pthread_join(philos->mans[i].thread, NULL);
+		pthread_detach(philos->mans[i].thread);
 		i++;
 	}
 }
