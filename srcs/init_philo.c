@@ -6,14 +6,14 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 23:35:22 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 23:59:30 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_atoi.h"
 #include "philo.h"
 #include "sys/errno.h"
-# include <pthread.h>
+#include <pthread.h>
 
 static int	has_error(int *error, int argc)
 {
@@ -30,10 +30,10 @@ static int	has_error(int *error, int argc)
 	return (false);
 }
 
-static	t_philos *parse_arg(int argc, char **argv)
+static t_philos	*parse_arg(int argc, char **argv)
 {
 	t_philos	*philos;
-	int		error[5];
+	int			error[5];
 
 	if (!(5 <= argc && argc <= 6))
 		return (NULL);
@@ -61,7 +61,6 @@ static	t_philos *parse_arg(int argc, char **argv)
 
 static void	copy_mutex(t_philos *philos, int i)
 {
-
 	philos->mans[i].id = i + 1;
 	philos->mans[i].philos = (void *)philos;
 	philos->mans[i].mutex_right = &(philos->mans[i].mutex_forks);
@@ -69,14 +68,7 @@ static void	copy_mutex(t_philos *philos, int i)
 	if (i > 0)
 		philos->mans[i].mutex_left = &(philos->mans[i - 1].mutex_forks);
 	if (i == philos->num - 1)
-	{
 		philos->mans[0].mutex_left = &(philos->mans[i].mutex_forks);
-	}
-	//philos->info = 
-	//philos->mans[i].time_die = philos->time_die;
-	//philos->mans[i].time_eat = philos->time_eat;
-	//philos->mans[i].time_slp = philos->time_slp;
-	//philos->mans[i].boot_time = philos->boot_time;
 }
 
 static int	set_default_value(t_philos *philos)

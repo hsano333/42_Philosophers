@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 22:37:47 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 23:57:17 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	kill_oneself(t_philos *philos)
 size_t	diff_time(t_time now, t_time boot_time)
 {
 	size_t	diff;
-	
-	diff = (now.tv_sec - boot_time.tv_sec) * 1000000  + (now.tv_usec - boot_time.tv_usec);
+
+	diff = (now.tv_sec - boot_time.tv_sec) * 1000000 \
+			+ (now.tv_usec - boot_time.tv_usec);
 	return (diff);
 }
 
@@ -47,7 +48,6 @@ void	wait_exiting_thread(t_philos *philos)
 	i = 0;
 	while (i < philos->num)
 	{
-		//pthread_detach(philos->mans[i].thread);
 		pthread_join(philos->mans[i].thread, NULL);
 		i++;
 	}
