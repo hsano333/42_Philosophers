@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:16:21 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 15:31:15 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 16:16:49 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	put_logs(t_man *man, enum e_strs mode)
 	pthread_mutex_lock(&philos->mutex_print);
 
 
-	if (get_death_flag(philos) && mode == DIE)
+	if (get_end_flag(philos) && mode == DIE)
 		put_logs_selected(man, mode);
-	else if (!get_death_flag(philos))
+	else if (!get_end_flag(philos))
 		put_logs_selected(man, mode);
 	pthread_mutex_unlock(&philos->mutex_print);
 }

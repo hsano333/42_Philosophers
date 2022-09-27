@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 15:09:16 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 16:17:11 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ typedef struct s_man
 {
 	//timeval			timestamp_eating;
 	int				id;
+	size_t				cnt_eat;
 	//int				time_die;
 	//int				time_eat;
 	//int				time_slp;
 	//t_time			boot_time;
 	t_time			timestamp_eating;
 	pthread_t		thread;
+	pthread_mutex_t mutex_cnt_eat;
 	pthread_mutex_t mutex_forks;
 	pthread_mutex_t *mutex_left;
 	pthread_mutex_t *mutex_right;
@@ -55,7 +57,7 @@ typedef struct s_philos
 	int				time_eat;
 	int				time_slp;
 	int				must_eat_num;
-	int				death_flag;
+	int				end_flag;
 	t_man			*mans;
 	//t_man			*man;
 	t_time		boot_time;
@@ -70,12 +72,15 @@ void		create_thread(t_philos *philos);
 void		check_death(t_philos *philos);
 size_t		diff_time(t_time now, t_time boot_time);
 void		put_logs(t_man *man, enum e_strs mode);
+void		philo_eat(t_man *man);
 void		philo_eat_odd(t_man *man);
 void		philo_eat_even(t_man *man);
 void		philo_sleep(t_man *man);
 void		philo_think(t_man *man);
 void		wait_exiting_thread(t_philos *philos);
-void		set_death_flag(t_philos *philos, int flag);
-int		get_death_flag(t_philos *philos);
+void		set_end_flag(t_philos *philos, int flag);
+int		get_end_flag(t_philos *philos);
+void		increment_eat_cnt(t_man *man);
+size_t		get_eat_cnt(t_man *man);
 
 #endif

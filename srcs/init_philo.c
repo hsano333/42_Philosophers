@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/27 15:30:36 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/27 16:16:22 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	set_default_value(t_philos *philos)
 {
 	t_time		boot_time;
 
-	philos->death_flag = false;
+	philos->end_flag = false;
 	gettimeofday(&boot_time, NULL);
 	philos->boot_time = boot_time;
 	pthread_mutex_init(&(philos->mutex_print), NULL);
@@ -108,6 +108,9 @@ t_philos	*init_philos(int argc, char **argv)
 	while (i < philos->num)
 	{
 		pthread_mutex_init(&(philos->mans[i].mutex_forks), NULL);
+		if (errno == EINVAL || errno == ENOMEM)
+			kill_oneself(philos);
+		pthread_mutex_init(&(philos->mans[i].mutex_cnt_eat), NULL);
 		if (errno == EINVAL || errno == ENOMEM)
 			kill_oneself(philos);
 		copy_mutex(philos, i);
