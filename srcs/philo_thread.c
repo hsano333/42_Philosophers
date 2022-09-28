@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 00:49:17 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 13:05:47 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*philo_loop(void *man_arg)
 	man = (t_man *)man_arg;
 	philos = (t_philos *)man->philos;
 	if (man->id % 2 == 0)
-		usleep(2000);
+		usleep(5000);
 	while (1)
 	{
 		philo_eat(man);

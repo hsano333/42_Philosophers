@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 00:56:47 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 14:02:11 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void		increment_eat_cnt(t_man *man);
 size_t		get_eat_cnt(t_man *man);
 t_time		get_eat_time(t_man *man);
 void		set_eat_time(t_man *man);
+void		helper_sleep(int mtime);
 
 #endif
