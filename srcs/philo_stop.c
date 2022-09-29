@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 12:40:34 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/29 02:33:03 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_eat_cnt(t_philos *philos)
 	i = 0;
 	while (i < philos->num)
 	{
-		if (get_eat_cnt(&(philos->mans[i])) < (size_t)(philos->must_eat_num))
+		if (get_eat_cnt(&(philos->mans[i])) < (size_t)(philos->must_eat_num) * 2)
 			return (false);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 00:49:32 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/28 21:59:03 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	has_error(int *error, int argc)
 	return (false);
 }
 
-static t_philos	*parse_arg(int argc, char **argv)
+t_philos	*parse_arg(int argc, char **argv)
 {
 	t_philos	*philos;
 	int			error[5];

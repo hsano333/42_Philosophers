@@ -28,6 +28,9 @@ OBJS	:= $(SRCS:.c=.o)
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 DEPS	:= $(OBJECTS:.o=.d)
 INCS	:= ./include 
+ifdef WITH_BONUS
+INCS	:= ./include_bonus
+endif
 
 LIBDIRS	:= 
 IFLAGS	:= $(addprefix -I,$(INCS))

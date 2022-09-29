@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 13:05:47 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/29 12:50:25 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	*philo_loop(void *man_arg)
 
 	man = (t_man *)man_arg;
 	philos = (t_philos *)man->philos;
-	if (man->id % 2 == 0)
-		usleep(5000);
+	if (man->id % 2 == 1 && man->id != philos->num)
+		usleep(300);
+	else
+		usleep(100);
 	while (1)
 	{
 		philo_eat(man);
@@ -36,8 +38,9 @@ int	create_thread(t_philos *philos)
 {
 	int	i;
 
-	i = 0;
-	while (i < philos->num)
+	i = philos->num - 1;
+	//i = 0;
+	while (i < philos->num )
 	{
 		if (pthread_create(&(philos->mans[i].thread), NULL, \
 							philo_loop, (void *)&(philos->mans[i])))
@@ -46,6 +49,14 @@ int	create_thread(t_philos *philos)
 			printf("Error:stop simulation\n");
 			return (false);
 		}
+		if (i == philos->num - 1)
+		{
+			usleep(200);
+			i = 0;
+		}
+		else if (i == philos->num - 2)
+			break ;
+		else 
 		i++;
 	}
 	return (true);
