@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:43:35 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 13:57:08 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/29 15:18:57 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ size_t	get_neighbor_eat_cnt(t_man *man)
 		prev = philos->num - 1;
 	else if (man->id == philos->num)
 		next = 0;
-
-	{
-		next_eat_cnt = get_eat_cnt(&(philos->mans[next]));
-	}
-	{
-		prev_eat_cnt = get_eat_cnt(&(philos->mans[prev]));
-	}
+	next_eat_cnt = get_eat_cnt(&(philos->mans[next]));
+	if (diff_time(get_eat_time(man), get_eat_time(&(philos->mans[next]))) > (size_t)philos->time_eat * 5 / 4)
+		next_eat_cnt--;
+	//else if (diff_time(get_eat_time(&(philos->mans[next])), get_eat_time(man)) < (size_t)philos->time_eat / 2)
+	prev_eat_cnt = get_eat_cnt(&(philos->mans[prev]));
+	if (diff_time(get_eat_time(man),get_eat_time(&(philos->mans[prev])) ) > (size_t)philos->time_eat * 5 / 4)
+		prev_eat_cnt--;
 	if (prev_eat_cnt >= next_eat_cnt)
 		return (next_eat_cnt);
 	return (prev_eat_cnt);

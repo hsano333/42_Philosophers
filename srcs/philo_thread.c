@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 12:50:25 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/29 15:26:03 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	*philo_loop(void *man_arg)
 	man = (t_man *)man_arg;
 	philos = (t_philos *)man->philos;
 	if (man->id % 2 == 1 && man->id != philos->num)
-		usleep(300);
-	else
-		usleep(100);
+		while (get_neighbor_eat_cnt(man) == 0)
+			usleep(50);
+	//else
+		//usleep(100);
 	while (1)
 	{
 		philo_eat(man);
@@ -51,7 +52,7 @@ int	create_thread(t_philos *philos)
 		}
 		if (i == philos->num - 1)
 		{
-			usleep(200);
+			usleep(500);
 			i = 0;
 		}
 		else if (i == philos->num - 2)

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:13:31 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 03:00:57 by hsano            ###   ########.fr       */
+/*   Updated: 2022/09/29 15:22:36 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	philo_think(t_man *man)
 	//if (get_eat_cnt(man) / 2 > get_neighbor_eat_cnt(man) / 2)
 	{
 		//helper_sleep(philos->time_eat / 2);
-		printf("man id=%d, think\n", man->id);
+		//printf("man id=%d, think\n", man->id);
 		helper_sleep(10);
 	}
 	if (get_end_flag(philos))
