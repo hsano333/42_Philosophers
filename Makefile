@@ -38,7 +38,7 @@ LFLAGS	:= $(addprefix -L,$(LIBDIRS))
 LIBS	:= 
 
 CC	:= cc
-CFLAGS	:= -Wall -Wextra -Werror
+CFLAGS	:= -Wall -Wextra -Werror -pthread
 LDFLAGS := $(IFLAGS) $(LFLAGS)
 
 all:
