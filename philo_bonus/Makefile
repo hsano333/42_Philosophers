@@ -13,7 +13,7 @@ LIBFT		:= $(LIBFTDIR)/$(LIBFTNAME)
 OBJDIR		:= ./obj
 
 SRCDIR	:= ./srcs/
-SRC	:= ft_atoi.c init_philo.c philo_util.c philo_thread.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c
+SRC	:= ft_atoi.c init_philo.c philo_util.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c philo_process.c kill_process.c
 ENTRY	:= main.c
 ENTRYBONUS	:= main.c
 DELENTRY	:= $(OBJDIR)/main.o

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 14:32:58 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 01:37:30 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	helper_sleep(int mtime)
 	gettimeofday(&begin, NULL);
 	while (1)
 	{
-		usleep(10);
+		usleep(100);
 		gettimeofday(&now, NULL);
 		if ((diff_time(now, begin) / 1000) >= (size_t)mtime)
 			break ;

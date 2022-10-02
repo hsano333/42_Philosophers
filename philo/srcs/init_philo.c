@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 21:59:03 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 00:47:22 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_philos	*parse_arg(int argc, char **argv)
 	return (philos);
 }
 
-static void	copy_mutex(t_philos *philos, int i)
+static void	copy_man(t_philos *philos, int i)
 {
 	philos->mans[i].id = i + 1;
 	philos->mans[i].philos = (void *)philos;
@@ -106,7 +106,7 @@ t_philos	*init_philos(int argc, char **argv)
 		pthread_mutex_init(&(philos->mans[i].mutex_man), NULL);
 		if (errno == EINVAL || errno == ENOMEM)
 			break ;
-		copy_mutex(philos, i);
+		copy_man(philos, i);
 		i++;
 	}
 	if (i != philos->num)

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 21:32:05 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/28 01:09:08 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 01:10:19 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,28 @@
 int	main(int argc, char **argv)
 {
 	t_philos	*philos;
+	pid_t		pid;
+	int			status;
 
-	philos = init_philos(argc, argv);
-	if (!philos)
+	pid = fork();
+	if (pid < 0)
 		return (1);
-	if (create_thread(philos))
-		check_stop(philos);
-	clear_all(philos);
+	else if (pid == 0)
+	{
+		philos = init_philos(argc, argv);
+		if (!philos)
+			return (1);
+		create_notice_process(philos);
+		create_process(philos);
+		clear_all(philos);
+	}
+	else
+	{
+		printf("main No.1 wait\n");
+		waitpid(pid, &status, 0);
+		printf("main No.2 wait\n");
+		//if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+			//kill_process(0, NULL, NULL);
+	}
 	return (0);
 }

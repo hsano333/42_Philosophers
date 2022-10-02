@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 17:02:18 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 00:46:52 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	has_error(int *error, int argc)
 	return (false);
 }
 
-t_philos	*parse_arg(int argc, char **argv)
+static t_philos	*parse_arg(int argc, char **argv)
 {
 	t_philos	*philos;
 	int			error[5];
@@ -59,25 +59,34 @@ t_philos	*parse_arg(int argc, char **argv)
 	return (philos);
 }
 
-static void	copy_mutex(t_philos *philos, int i)
+static void	copy_man(t_philos *philos, int i)
 {
 	philos->mans[i].id = i + 1;
 	philos->mans[i].philos = (void *)philos;
-	philos->mans[i].mutex_right = &(philos->mans[i].mutex_forks);
+	//philos->mans[i].mutex_right = &(philos->mans[i].mutex_forks);
 	philos->mans[i].timestamp_eating = philos->boot_time;
-	if (i > 0)
-		philos->mans[i].mutex_left = &(philos->mans[i - 1].mutex_forks);
-	if (i == philos->num - 1)
-		philos->mans[0].mutex_left = &(philos->mans[i].mutex_forks);
+	//if (i > 0)
+		//philos->mans[i].mutex_left = &(philos->mans[i - 1].mutex_forks);
+	//if (i == philos->num - 1)
+		//philos->mans[0].mutex_left = &(philos->mans[i].mutex_forks);
 }
 
 static int	set_default_value(t_philos *philos)
 {
 	t_time		boot_time;
+	//sem_t		rval;
 
 	philos->end_flag = false;
 	gettimeofday(&boot_time, NULL);
 	philos->boot_time = boot_time;
+	philos->sem_name = "fork";
+	philos->sem_fd = sem_open(philos->sem_name, O_CREAT | O_EXCL , 0777, philos->num);
+	//printf("philos->sem_fd=%d\n", *philos->sem_fd);
+	if (philos->sem_fd == SEM_FAILED)
+	{
+		printf("philos->sem_fd=failure\n");
+		return (false);
+	}
 	//pthread_mutex_init(&(philos->mutex_print), NULL);
 	//if (errno == EINVAL || errno == ENOMEM)
 		//return (false);
@@ -95,7 +104,8 @@ t_philos	*init_philos(int argc, char **argv)
 	philos = parse_arg(argc, argv);
 	if (!philos)
 		return (NULL);
-	if (!set_default_value(philos))
+	set_default_value(philos);
+	//if (!set_default_value(philos))
 		//pthread_mutex_init(&(philos->mutex_check_death), NULL);
 	i = 0;
 	while (i < philos->num)
@@ -106,10 +116,10 @@ t_philos	*init_philos(int argc, char **argv)
 		//pthread_mutex_init(&(philos->mans[i].mutex_man), NULL);
 		//if (errno == EINVAL || errno == ENOMEM)
 			//break ;
-		//copy_mutex(philos, i);
+		copy_man(philos, i);
 		i++;
 	}
-	if (i != philos->num)
-		philos = clear_all(philos);
+	//if (i != philos->num)
+		//philos = clear_all(philos);
 	return (philos);
 }
