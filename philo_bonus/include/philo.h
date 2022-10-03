@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 01:10:04 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 15:36:06 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ typedef struct s_philos
 	//pthread_mutex_t	mutex_check_death;
 	char			*sem_name;
 	sem_t			*sem_fd;
+	pthread_t		thread;
 }	t_philos;
 
 t_philos	*init_philos(int argc, char **argv);
 t_philos	*clear_all(t_philos *philos);
-int			create_process(t_philos *philos);
+int			create_thread_for_process(t_philos *philos);
 void		check_stop(t_philos *philos, int i);
 size_t		diff_time(t_time now, t_time boot_time);
 void		put_logs(t_man *man, enum e_strs mode);
