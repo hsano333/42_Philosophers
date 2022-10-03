@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 21:32:05 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 14:51:44 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 21:32:13 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 		create_thread_for_process(philos);
 		//create_process(philos);
 		clear_all(philos);
+		exit(0);
 	}
 	else
 	{

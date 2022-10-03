@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 15:35:30 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 02:05:18 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,19 @@ void	*philo_loop(void *man_arg)
 {
 	t_man		*man;
 	t_philos	*philos;
+	t_time		base;
+	t_time		time;
+	size_t	test_time;
 
 	man = (t_man *)man_arg;
 	philos = (t_philos *)man->philos;
-	//printf("philo_loop No.2\n");
+	gettimeofday(&base, NULL);
+	test_time = diff_time(time, base);
+	printf("man-id:%d philo_loop No.1 \n", man->id);
+	think_sleep(man, (philos->time_eat + philos->time_slp) / 10);
+	gettimeofday(&time, NULL);
+	test_time = diff_time(time, base);
+	printf("man-id:%d, test_time=%zu, philo_loop No.2\n", man->id, test_time);
 	//if (man->id % 2 == 1 && man->id != philos->num)
 		//while (get_neighbor_eat_cnt(man) == 0)
 			//usleep(50);
@@ -41,17 +50,17 @@ void	*philo_loop(void *man_arg)
 void	*philo_process(void *man_arg)
 {
 	t_man		*man;
-	t_philos	*philos;
+	//t_philos	*philos;
 
 	man = (t_man *)man_arg;
-	philos = (t_philos *)man->philos;
+	//philos = (t_philos *)man->philos;
+	philo_loop(man);
 
-	if (pthread_create(&man->thread, NULL, philo_loop, man_arg))
-	{
-		kill_process(philos);
-		printf("error create process \n");
-	}
-	check_stop(philos, man->id - 1);
+	//if (pthread_create(&man->thread, NULL, philo_loop, man_arg))
+	//{
+		//kill_process(philos);
+		//printf("error create process \n");
+	//}
 						
 	//philo_loop(man-> &(philos->mans[i]));
 	//philo_process
@@ -68,38 +77,33 @@ void	*wait_process(void	*man_arg)
 	return (NULL);
 }
 
+void	*wait_death_process(void	*arg)
+{
+	if (arg == NULL)
+		exit(0);
+	wait(0);
+	exit(0);
+	return (NULL);
+}
+
 void	wait_child(t_philos *philos)
 {
 	int		i;
-	//int		status;
-	void	*ptr;
+	int		status;
+	//void	*ptr;
 
 	i = 0;
-	//create_init();
-	//printf("wait_child No.1\n");
 	while (i < philos->num)
 	{
-		//printf("wait_child No.2, philos->num:%d\n", philos->num);
-		if (pthread_create(&(philos->mans[i].thread), NULL, \
-							wait_process, (void *)&(philos->mans[i])))
+		waitpid(philos->mans[i].n_pid, &status, 0);
 		i++;
-		//printf("wait_child No.3\n");
-	}
-	i = 0;
-	while (i < philos->num)
-	{
-		//printf("wait_child No.4\n");
-		pthread_join(philos->mans[i].thread, &ptr);
-		//pthread_detach(philos->mans[i].thread);
-		i++;
-		//printf("wait_child No.5\n");
 	}
 	printf("all exit\n");
 	printf("all exit\n");
 	printf("all exit\n");
 	printf("all exit\n");
 	kill_process(philos);
-	exit(0);
+	//exit(0);
 }
 
 /*
@@ -139,16 +143,27 @@ void	*man_process(void	*arg)
 
 	man = (t_man *)arg;
 	philos = man->philos;
-	printf("philos->sem=%d\n", *(philos->sem_fd));
+	//printf("philos->sem=%d\n", (int)(*(philos->sem_fd)));
 	//philos = (t_philos *)arg;
-	man->pid = fork();
-	if (man->pid < 0)
-		kill_process(philos);
-	else if (man->pid == 0)
+	//man->pid = fork();
+	//if (man->pid < 0)
+		//kill_process(philos);
+	//else if (man->pid == 0)
+	//{
+	if (pthread_create(&man->thread, NULL, philo_loop, man))
 	{
-		//philo_loop();
-		philo_process(man);
+		kill_process(philos);
+		//printf("error create process \n");
 	}
+	//philo_loop();
+	//philo_process(man);
+	check_stop(philos, man->id - 1);
+		//exit(0);
+	//}
+	//else
+	//{
+
+	//}
 	return (NULL);
 }
 
@@ -158,11 +173,28 @@ int	create_thread_for_process(t_philos *philos)
 	//pid_t	pid;
 
 	i = 0;
-	while (i < philos->num)
+	philos->pp_pid = fork();
+	if (philos->pp_pid < 0)
+		kill_process(philos);
+	else if (philos->pp_pid == 0)
 	{
-		pthread_create(&philos->thread, NULL, man_process, (void *)(&philos));
-		i++;
+		while (i < philos->num)
+		{
+			printf("i=%d\n", i);
+			philos->mans[i].pid = fork();
+			if (philos->mans[i].pid < 0)
+				kill_process(philos);
+			else if (philos->mans[i].pid == 0)
+			{
+				man_process(&(philos->mans[i]));
+				exit(0);
+			}
+			i++;
+		}
+		wait_child(philos);
+		exit(0);
 	}
-	wait_child(philos);
+	else
+		waitpid(philos->pp_pid, 0 , 0);
 	return (true);
 }

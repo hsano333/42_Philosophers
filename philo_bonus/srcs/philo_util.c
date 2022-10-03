@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 21:15:51 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 02:00:51 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 t_philos	*clear_all(t_philos *philos)
 {
-	int	i;
+	//int	i;
 
-	i = 0;
+	//i = 0;
 	//pthread_mutex_destroy(&philos->mutex_print);
 	//pthread_mutex_destroy(&philos->mutex_check_death);
 	//while (i < philos->num)
 		//pthread_mutex_destroy(&(philos->mans[i++].mutex_forks));
+	sem_close(philos->sem_fd);
 	sem_unlink(philos->sem_name);
 	free(philos->mans);
 	free(philos);
@@ -63,7 +64,7 @@ void	helper_sleep(int mtime)
 	gettimeofday(&begin, NULL);
 	while (1)
 	{
-		usleep(10);
+		usleep(100);
 		gettimeofday(&now, NULL);
 		if ((diff_time(now, begin) / 1000) >= (size_t)mtime)
 			break ;

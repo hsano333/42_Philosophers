@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 15:36:06 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 23:25:49 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <limits.h>
 # include <sys/time.h>
 # include <sys/stat.h>
+# include <sys/fcntl.h>
+# include <sys/wait.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <semaphore.h>
@@ -55,6 +57,8 @@ typedef struct s_philos
 	int				time_slp;
 	int				must_eat_num;
 	int				end_flag;
+	pid_t			np_pid;
+	pid_t			pp_pid;
 	t_man			*mans;
 	t_time			boot_time;
 	//pthread_mutex_t	mutex_print;
@@ -84,5 +88,6 @@ void		helper_sleep(int mtime);
 size_t		get_neighbor_eat_cnt(t_man *man);
 void		kill_process(t_philos *philos);
 void		create_notice_process(t_philos *philos);
+void		think_sleep(t_man *man, size_t sleep_time);
 
 #endif
