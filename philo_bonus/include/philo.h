@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 20:58:08 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 23:25:49 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void		helper_sleep(int mtime);
 size_t		get_neighbor_eat_cnt(t_man *man);
 void		kill_process(t_philos *philos);
 void		create_notice_process(t_philos *philos);
+void		think_sleep(t_man *man, size_t sleep_time);
 
 #endif

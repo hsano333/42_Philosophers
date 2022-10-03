@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 20:58:52 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 02:05:18 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,19 @@ void	*philo_loop(void *man_arg)
 {
 	t_man		*man;
 	t_philos	*philos;
+	t_time		base;
+	t_time		time;
+	size_t	test_time;
 
 	man = (t_man *)man_arg;
 	philos = (t_philos *)man->philos;
-	//printf("philo_loop No.2\n");
+	gettimeofday(&base, NULL);
+	test_time = diff_time(time, base);
+	printf("man-id:%d philo_loop No.1 \n", man->id);
+	think_sleep(man, (philos->time_eat + philos->time_slp) / 10);
+	gettimeofday(&time, NULL);
+	test_time = diff_time(time, base);
+	printf("man-id:%d, test_time=%zu, philo_loop No.2\n", man->id, test_time);
 	//if (man->id % 2 == 1 && man->id != philos->num)
 		//while (get_neighbor_eat_cnt(man) == 0)
 			//usleep(50);
@@ -171,6 +180,7 @@ int	create_thread_for_process(t_philos *philos)
 	{
 		while (i < philos->num)
 		{
+			printf("i=%d\n", i);
 			philos->mans[i].pid = fork();
 			if (philos->mans[i].pid < 0)
 				kill_process(philos);

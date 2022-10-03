@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 17:58:18 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 02:07:33 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ static int	set_default_value(t_philos *philos)
 	philos->sem_name = "fork11";
 	//philos->sem_name = NULL;
 	philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
+	sem_close(philos->sem_fd);
+	sem_unlink(philos->sem_name);
+	philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
+	//philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
 	//printf("philos->sem_fd=%d\n", *philos->sem_fd);
 	if (philos->sem_fd == SEM_FAILED)
 	{
