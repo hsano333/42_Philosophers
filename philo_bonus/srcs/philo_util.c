@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 21:15:51 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 16:59:34 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 t_philos	*clear_all(t_philos *philos)
 {
-	int	i;
+	//int	i;
 
-	i = 0;
+	//i = 0;
 	//pthread_mutex_destroy(&philos->mutex_print);
 	//pthread_mutex_destroy(&philos->mutex_check_death);
 	//while (i < philos->num)
 		//pthread_mutex_destroy(&(philos->mans[i++].mutex_forks));
+	sem_close(philos->sem_fd);
 	sem_unlink(philos->sem_name);
 	free(philos->mans);
 	free(philos);

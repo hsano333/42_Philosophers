@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 15:24:23 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 21:00:09 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ void	check_stop(t_philos *philos, int i)
 		}
 		if (check_death(philos, i))
 		{
-			kill(philos->mans[i].n_pid, 2);
-			kill(philos->mans[i].pid, 2);
+			kill(philos->np_pid, 2);
+			//kill(philos->mans[i].n_pid, 2);
+			//kill(philos->mans[i].pid, 2);
 			set_end_flag(philos, true);
 			//break ;
 		//}
@@ -92,7 +93,11 @@ void	check_stop(t_philos *philos, int i)
 			//kill(philos->mans[i].pid, 2);
 			//kill(philos->mans[i].pid, 159);
 			//if (philos->must_eat_num == 0)
-			put_logs(&(philos->mans[i]), DIE);
+			//pthread_detach();
+			//put_logs(&(philos->mans[i]), DIE);
+			clear_all(philos);
+			kill(philos->pp_pid, 2);
+			//kill_process(philos);
 			exit(0);
 		}
 		usleep(100);

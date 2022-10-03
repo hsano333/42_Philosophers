@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 00:46:52 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/03 17:58:18 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ static int	set_default_value(t_philos *philos)
 	philos->end_flag = false;
 	gettimeofday(&boot_time, NULL);
 	philos->boot_time = boot_time;
-	philos->sem_name = "fork";
-	philos->sem_fd = sem_open(philos->sem_name, O_CREAT | O_EXCL , 0777, philos->num);
+	philos->sem_name = "fork11";
+	//philos->sem_name = NULL;
+	philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
 	//printf("philos->sem_fd=%d\n", *philos->sem_fd);
 	if (philos->sem_fd == SEM_FAILED)
 	{
 		printf("philos->sem_fd=failure\n");
+		kill_process(philos);
 		return (false);
 	}
 	//pthread_mutex_init(&(philos->mutex_print), NULL);
