@@ -1,9 +1,4 @@
-MANDE 	:= philo
-BONUS 	:= philo_bonus
 NAME 	:= philo_bonus
-ifdef WITH_BONUS
-NAME 	:= philo_bonus
-endif
 LIB	:= ./lib/
 
 LIBFTDIR	:= $(LIB)/libft
@@ -15,12 +10,6 @@ OBJDIR		:= ./obj
 SRCDIR	:= ./srcs/
 SRC	:= ft_atoi.c init_philo.c philo_util.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c philo_process.c kill_process.c notice.c
 ENTRY	:= main.c
-ENTRYBONUS	:= main.c
-DELENTRY	:= $(OBJDIR)/main.o
-ifdef WITH_BONUS
-ENTRY	:= $(ENTRYBONUS)
-DELENTRY	:= $(OBJDIR)/main.o
-endif
 SRC	+= $(ENTRY)
 
 SRCS	:= $(addprefix $(SRCDIR), $(SRC))
@@ -43,7 +32,6 @@ all:
 
 $(NAME)	:	$(OBJECTS) $(LIBS) 
 		$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o $@
-		$(RM) $(DELENTRY)
 
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
@@ -54,21 +42,15 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 clean	:
 			$(RM) $(OBJECTS)
 			$(RM) $(DEPS)
-			$(RM) $(OBJDIR)/$(ENTRYBONUS:.c=.o)
-			$(RM) $(OBJDIR)/$(ENTRYBONUS:.c=.d)
 
 fclean	:	clean
-			$(RM) $(MANDE)
-			$(RM) $(BONUS)
-			$(RM) $(LIBS)
+			$(RM) $(NAME)
+
 
 re	:		fclean all
-
-bonus	:	
-			@make WITH_BONUS=1
 
 ifeq ($(findstring clean,$(MAKECMDGOALS)),)
 -include $(DEPS)
 endif
 
-.PHONY: clean fclean bonus re
+.PHONY: clean fclean re
