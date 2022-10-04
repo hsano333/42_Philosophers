@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:13:31 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:21:55 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 05:32:40 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	philo_think(t_man *man)
 	{
 		while (get_eat_cnt(man) > get_neighbor_eat_cnt(man))
 		{
-			helper_sleep(10);
+			helper_sleep(1);
 		}
 	}
 	if (get_end_flag(philos))
