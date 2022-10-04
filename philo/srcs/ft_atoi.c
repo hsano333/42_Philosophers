@@ -6,7 +6,7 @@
 /*   By: hsano </var/mail/hsano>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:42:24 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/25 23:27:30 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 02:59:04 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,29 +130,3 @@ int	ft_atoi(const char *str, int *error)
 	}
 	return ((int)(sum * minus));
 }
-//#include <stdio.h>
-//#include <string.h>
-//#include <stdlib.h>
-//int main(int argc,char **argv)
-//{
-//	char *s1;
-//	int len;
-//	int	result;
-//	int error;
-//
-//	result = 0;
-//	printf("LONGMAX=%ld\n",LONG_MAX);
-//	printf("INTMAX=%d\n",INT_MAX);
-//	if (argc == 2)
-//	{
-//		s1 = argv[1];
-//		//s1 = "\t\v\f\r\n \f-06050";
-//		len = atoi(s1);
-//		result = ft_atoi(s1, &error);
-//		printf("input:%s\n",s1);
-//		printf("my:%d, error=%d\n",result, error);
-//		printf("test:%d\n",len);
-//	}
-//
-//	return (0);
-//}

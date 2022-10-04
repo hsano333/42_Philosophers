@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 02:07:33 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 03:07:41 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ static int	set_default_value(t_philos *philos)
 	//printf("philos->sem_fd=%d\n", *philos->sem_fd);
 	if (philos->sem_fd == SEM_FAILED)
 	{
-		printf("philos->sem_fd=failure\n");
 		kill_process(philos);
 		return (false);
 	}

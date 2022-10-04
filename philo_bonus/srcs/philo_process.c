@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 02:05:18 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 04:06:47 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,18 @@ void	*philo_loop(void *man_arg)
 {
 	t_man		*man;
 	t_philos	*philos;
-	t_time		base;
-	t_time		time;
-	size_t	test_time;
+	//t_time		base;
+	//t_time		time;
+	//size_t	test_time;
 
 	man = (t_man *)man_arg;
 	philos = (t_philos *)man->philos;
-	gettimeofday(&base, NULL);
-	test_time = diff_time(time, base);
-	printf("man-id:%d philo_loop No.1 \n", man->id);
-	think_sleep(man, (philos->time_eat + philos->time_slp) / 10);
-	gettimeofday(&time, NULL);
-	test_time = diff_time(time, base);
-	printf("man-id:%d, test_time=%zu, philo_loop No.2\n", man->id, test_time);
-	//if (man->id % 2 == 1 && man->id != philos->num)
-		//while (get_neighbor_eat_cnt(man) == 0)
-			//usleep(50);
-	//printf("philo_loop No.3\n");
-	//else
-		//usleep(100);
+	think_sleep(man, (philos->time_eat + philos->time_slp) / 4, philos);
 	while (1)
 	{
-		philo_eat(man);
-		philo_sleep(man);
-		philo_think(man);
+		philo_eat(man, philos);
+		philo_sleep(man, philos);
+		philo_think(man, philos);
 		if (get_end_flag(philos))
 			exit(1);
 	}
@@ -98,10 +86,6 @@ void	wait_child(t_philos *philos)
 		waitpid(philos->mans[i].n_pid, &status, 0);
 		i++;
 	}
-	printf("all exit\n");
-	printf("all exit\n");
-	printf("all exit\n");
-	printf("all exit\n");
 	kill_process(philos);
 	//exit(0);
 }
@@ -170,7 +154,7 @@ void	*man_process(void	*arg)
 int	create_thread_for_process(t_philos *philos)
 {
 	int		i;
-	//pid_t	pid;
+	t_time		boot_time;
 
 	i = 0;
 	philos->pp_pid = fork();
@@ -178,9 +162,10 @@ int	create_thread_for_process(t_philos *philos)
 		kill_process(philos);
 	else if (philos->pp_pid == 0)
 	{
+		gettimeofday(&boot_time, NULL);
+		philos->boot_time = boot_time;
 		while (i < philos->num)
 		{
-			printf("i=%d\n", i);
 			philos->mans[i].pid = fork();
 			if (philos->mans[i].pid < 0)
 				kill_process(philos);
@@ -194,7 +179,7 @@ int	create_thread_for_process(t_philos *philos)
 		wait_child(philos);
 		exit(0);
 	}
-	else
-		waitpid(philos->pp_pid, 0 , 0);
+	//else
+		//waitpid(philos->pp_pid, 0 , 0);
 	return (true);
 }

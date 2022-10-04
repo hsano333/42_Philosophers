@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 21:00:09 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 03:41:26 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,6 @@ void	check_stop(t_philos *philos, int i)
 			//kill_process(philos);
 			exit(0);
 		}
-		usleep(100);
+		usleep(2000);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 02:33:03 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 12:32:49 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	check_death(t_philos *philos)
 	{
 		gettimeofday(&time, NULL);
 		time_since_eat = diff_time(time, philos->mans[i].timestamp_eating);
-		if (time_since_eat > (size_t)philos->time_die * 1000)
+		if (time_since_eat / 1000 > (size_t)philos->time_die)
 		{
 			set_end_flag(philos, true);
 			put_logs(&(philos->mans[i]), DIE);

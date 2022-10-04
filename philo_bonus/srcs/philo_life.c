@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:13:31 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 02:32:57 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 04:00:43 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void	philo_eat_even(t_man *man)
 	*/
 }
 
-void	philo_eat(t_man *man)
+void	philo_eat(t_man *man, t_philos *philos)
 {
-	t_philos	*philos;
+	//t_philos	*philos;
 
 
 	//printf("philo_eat No.1\n");
-	philos = (t_philos *)man->philos;
+	//philos = (t_philos *)man->philos;
 	//printf("philo_eat No.2\n");
 	if (get_end_flag(philos))
 	{
@@ -94,20 +94,20 @@ void	philo_eat(t_man *man)
 	*/
 }
 
-void	philo_sleep(t_man *man)
+void	philo_sleep(t_man *man, t_philos *philos)
 {
-	t_philos	*philos;
+	//t_philos	*philos;
 
-	philos = (t_philos *)man->philos;
+	//philos = (t_philos *)man->philos;
 	if (get_end_flag(philos))
 		return ;
 	put_logs(man, SLEEP);
 	helper_sleep(philos->time_slp);
 }
 
-void	think_sleep(t_man *man, size_t sleep_time)
+void	think_sleep(t_man *man, size_t sleep_time, t_philos *philos)
 {
-	t_philos	*philos;
+	//t_philos	*philos;
 	//size_t	time;
 	//t_time	time;
 	//size_t	time_since_eat;
@@ -117,10 +117,13 @@ void	think_sleep(t_man *man, size_t sleep_time)
 	//gettimeofday(&time, NULL);
 	//time_since_eat = diff_time(time, man->timestamp_eating);
 
-	philos = (t_philos *)man->philos;
+	//philos = (t_philos *)man->philos;
 	//if (time_since_eat > (size_t)philos->time_die * 1000)
 	if ((philos->num % 2 == 0) && ((int)(man->cnt_eat % 2) == (man->id % 2)))
-		helper_sleep(sleep_time);
+	{
+		if (man->cnt_eat == 0)
+			helper_sleep(sleep_time);
+	}
 	else if (philos->num % 2 == 1)
 	{
 		if (((int)(man->cnt_eat % 3) == (man->id % 3)))
@@ -145,21 +148,21 @@ void	think_sleep(t_man *man, size_t sleep_time)
 	}
 }
 
-void	philo_think(t_man *man)
+void	philo_think(t_man *man, t_philos *philos)
 {
-	t_philos	*philos;
+	//t_philos	*philos;
 	t_time	time;
 	size_t	time_since_eat;
 	size_t	wait_time;
 
 	gettimeofday(&time, NULL);
 	time_since_eat = diff_time(time, man->timestamp_eating);
-	philos = (t_philos *)man->philos;
+	//philos = (t_philos *)man->philos;
 	wait_time = (size_t)((philos->time_eat + philos->time_slp) / 10);
 
 	put_logs(man, THINK);
 	if (time_since_eat > wait_time)
-		think_sleep(man, wait_time);
+		think_sleep(man, wait_time, philos);
 
 	//while (get_eat_cnt(man) > get_neighbor_eat_cnt(man))
 	//if (get_eat_cnt(man) / 2 > get_neighbor_eat_cnt(man) / 2)

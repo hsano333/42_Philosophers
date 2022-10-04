@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 21:32:05 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 21:32:13 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 04:05:45 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 			return (1);
 		create_notice_process(philos);
 		create_thread_for_process(philos);
+		waitpid(philos->pp_pid, 0 , 0);
 		//create_process(philos);
 		clear_all(philos);
 		exit(0);

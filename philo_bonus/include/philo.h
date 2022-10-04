@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 23:25:49 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 04:01:58 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int			create_thread_for_process(t_philos *philos);
 void		check_stop(t_philos *philos, int i);
 size_t		diff_time(t_time now, t_time boot_time);
 void		put_logs(t_man *man, enum e_strs mode);
-void		philo_eat(t_man *man);
-void		philo_sleep(t_man *man);
-void		philo_think(t_man *man);
+void		philo_eat(t_man *man, t_philos *philos);
+void		philo_sleep(t_man *man, t_philos *philos);
+void		philo_think(t_man *man, t_philos *philos);
 void		wait_exiting_thread(t_philos *philos);
 void		set_end_flag(t_philos *philos, int flag);
 int			get_end_flag(t_philos *philos);
@@ -88,6 +88,6 @@ void		helper_sleep(int mtime);
 size_t		get_neighbor_eat_cnt(t_man *man);
 void		kill_process(t_philos *philos);
 void		create_notice_process(t_philos *philos);
-void		think_sleep(t_man *man, size_t sleep_time);
+void		think_sleep(t_man *man, size_t sleep_time, t_philos *philos);
 
 #endif

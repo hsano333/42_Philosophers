@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:13:31 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 15:22:36 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 12:32:22 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	philo_eat_odd(t_man *man)
 	pthread_mutex_lock(man->mutex_left);
 	put_logs(man, FORKS);
 	pthread_mutex_lock(man->mutex_right);
-	put_logs(man, FORKS);
 	set_eat_time(man);
+	put_logs(man, FORKS);
 	increment_eat_cnt(man);
 	put_logs(man, EAT);
 	helper_sleep(philos->time_eat);
@@ -42,8 +42,8 @@ void	philo_eat_even(t_man *man)
 	pthread_mutex_lock(man->mutex_right);
 	put_logs(man, FORKS);
 	pthread_mutex_lock(man->mutex_left);
-	put_logs(man, FORKS);
 	set_eat_time(man);
+	put_logs(man, FORKS);
 	increment_eat_cnt(man);
 	put_logs(man, EAT);
 	helper_sleep(philos->time_eat);
@@ -82,13 +82,15 @@ void	philo_think(t_man *man)
 
 	philos = (t_philos *)man->philos;
 	put_logs(man, THINK);
-	while (get_eat_cnt(man) > get_neighbor_eat_cnt(man))
-	//if (get_eat_cnt(man) / 2 > get_neighbor_eat_cnt(man) / 2)
+	if (philos->num % 2 == 1)
 	{
-		//helper_sleep(philos->time_eat / 2);
-		//printf("man id=%d, think\n", man->id);
-		helper_sleep(10);
+		while (get_eat_cnt(man) > get_neighbor_eat_cnt(man))
+		{
+			helper_sleep(10);
+		}
 	}
+	//else if (((int)(man->cnt_eat % 2) != (man->id % 2)))
+		//helper_sleep((philos->time_slp + philos->time_eat) / 10);
 	if (get_end_flag(philos))
 		return ;
 }
