@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:58:45 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 03:15:23 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,26 @@ void	process_child(t_philos *philos)
 
 int	create_thread_for_process(t_philos *philos)
 {
-	t_time	boot_time;
+	int	i;
+	int	status;
 
 	philos->pp_pid = fork();
 	if (philos->pp_pid < 0)
 		kill_process(philos);
 	else if (philos->pp_pid == 0)
 	{
-		gettimeofday(&boot_time, NULL);
-		philos->boot_time = boot_time;
-		process_child();
+		process_child(philos);
 		wait_child(philos);
 		exit(0);
+	}
+	else
+	{
+		i = 0;
+		while (i < philos->num)
+		{
+			waitpid(philos->mans[i].n_pid, &status, 0);
+			i++;
+		}
 	}
 	return (true);
 }

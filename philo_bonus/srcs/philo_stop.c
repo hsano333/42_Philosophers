@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:32:30 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 03:19:21 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void	check_stop(t_philos *philos, int i)
 	{
 		if (check_eat_cnt(philos, i))
 		{
-			kill(philos->mans[i].n_pid, 3);
+			kill(philos->mans[i].n_pid, 2);
 			break ;
 		}
 		if (check_death(philos, i))
 		{
-			kill(philos->mans[i].n_pid, 3);
+			kill(philos->mans[i].n_pid, 2);
 			put_logs(&(philos->mans[i]), DIE);
 			kill(philos->pp_pid, 2);
 			clear_all(philos);

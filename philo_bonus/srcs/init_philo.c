@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:36:50 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 03:08:57 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static int	set_default_value(t_philos *philos)
 t_philos	*init_philos(int argc, char **argv)
 {
 	int			i;
+	t_time		boot_time;
 	t_philos	*philos;
 
 	philos = parse_arg(argc, argv);
@@ -96,6 +97,8 @@ t_philos	*init_philos(int argc, char **argv)
 		return (NULL);
 	set_default_value(philos);
 	i = 0;
+	gettimeofday(&boot_time, NULL);
+	philos->boot_time = boot_time;
 	while (i < philos->num)
 	{
 		copy_man(philos, i);
