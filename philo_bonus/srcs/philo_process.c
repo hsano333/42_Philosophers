@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 18:34:05 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 00:29:59 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,29 @@ void	wait_child(t_philos *philos)
 {
 	int		i;
 	int		status;
-	//void	*ptr;
 
 	i = 0;
 	while (i < philos->num)
 	{
-		printf("i=%d, npid=%d", i,philos->mans[i].n_pid );
+		//printf("waitpidx No.1 i=%d, npid=%d\n", i,philos->mans[i].n_pid );
 		waitpid(philos->mans[i].n_pid, &status, 0);
+		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+			printf("exit end \nWEXITSTATUS(status)=%d\n", WEXITSTATUS(status));
+		if (WIFSIGNALED(status) && WTERMSIG(status) == 3)
+			printf("signal test 3\n");
+		if (WIFSIGNALED(status) && WTERMSIG(status) == 32)
+		{
+			continue ;
+		}
+
+
+			//kill_process(0, NULL, NULL);
+		printf("waitpidx No.2 i=%d, npid=%d\n", i,philos->mans[i].n_pid );
 		i++;
 	}
-	kill_process(philos);
+	printf("waitpidx No.3 i=%d, npid=%d\n", i,philos->mans[i].n_pid );
+	printf("kill_process No.4\n");
+	//kill_process(philos);
 	//exit(0);
 }
 
@@ -137,6 +150,7 @@ void	*man_process(void	*arg)
 	//{
 	if (pthread_create(&man->thread, NULL, philo_loop, man))
 	{
+		printf("kill_process No.5\n");
 		kill_process(philos);
 		//printf("error create process \n");
 	}
@@ -160,7 +174,10 @@ int	create_thread_for_process(t_philos *philos)
 	i = 0;
 	philos->pp_pid = fork();
 	if (philos->pp_pid < 0)
+	{
+	printf("kill_process No.7\n");
 		kill_process(philos);
+	}
 	else if (philos->pp_pid == 0)
 	{
 		gettimeofday(&boot_time, NULL);
@@ -169,17 +186,24 @@ int	create_thread_for_process(t_philos *philos)
 		{
 			philos->mans[i].pid = fork();
 			if (philos->mans[i].pid < 0)
+			{
+	printf("kill_process No.8\n");
 				kill_process(philos);
+			}
 			else if (philos->mans[i].pid == 0)
 			{
 				man_process(&(philos->mans[i]));
+				printf("child process die No.1\n");
 				exit(0);
 			}
 			i++;
 		}
+		printf("child process die No.2\n");
 		wait_child(philos);
+		printf("child process die No.3\n");
 		exit(0);
 	}
+	printf("child process die No.4\n");
 	//else
 		//waitpid(philos->pp_pid, 0 , 0);
 	return (true);

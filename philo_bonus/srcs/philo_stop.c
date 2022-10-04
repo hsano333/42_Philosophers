@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 16:42:14 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 00:23:37 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ void	check_stop(t_philos *philos, int i)
 	{
 		if (check_eat_cnt(philos, i))
 		{
-			printf("check eat death No.1 i=%d, n_pid=%d\n", i, philos->mans[i].n_pid);
-			kill(philos->mans[i].n_pid, 2);
+			printf("kill check eat death No.1 i=%d, n_pid=%d\n", i, philos->mans[i].n_pid);
+			kill(philos->mans[i].n_pid, 3);
 			//set_end_flag(philos, true);
 			//wait_exiting_thread(philos);
-			//break ;
+			break ;
 		}
 		if (check_death(philos, i))
 		{
-			printf("check death No.2\n");
+			printf("kill check death No.2 philos->np_pid:%d, philos->pp_pid:%d\n", philos->np_pid, philos->pp_pid);
 			kill(philos->np_pid, 2);
 			put_logs(&(philos->mans[i]), DIE);
 			kill(philos->pp_pid, 2);
@@ -91,4 +91,5 @@ void	check_stop(t_philos *philos, int i)
 		}
 		usleep(2000);
 	}
+	printf("kill check death No.3 philos->np_pid:%d, philos->pp_pid:%d\n", philos->np_pid, philos->pp_pid);
 }
