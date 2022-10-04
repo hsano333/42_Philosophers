@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:00:24 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 02:16:11 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,13 @@ void	wait_child(t_philos *philos)
 	{
 		//printf("waitpidx No.1 i=%d, npid=%d\n", i,philos->mans[i].n_pid );
 		waitpid(philos->mans[i].n_pid, &status, 0);
-		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
-			printf("exit end \nWEXITSTATUS(status)=%d\n", WEXITSTATUS(status));
+		//if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+			//printf("exit end \nWEXITSTATUS(status)=%d\n", WEXITSTATUS(status));
 		if (WIFSIGNALED(status) && WTERMSIG(status) == 3)
-			printf("signal test 3\n");
-		if (WIFSIGNALED(status)) 
-				printf("signal:%d\n", WTERMSIG(status));
+			break ;
+			//printf("signal test 3\n");
+		//if (WIFSIGNALED(status)) 
+				//printf("signal:%d\n", WTERMSIG(status));
 		if (WIFSIGNALED(status) && WTERMSIG(status) == 32)
 		{
 			printf("end?\n");

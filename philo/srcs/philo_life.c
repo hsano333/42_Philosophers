@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:13:31 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 12:32:22 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 02:21:55 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	philo_eat_odd(t_man *man)
 {
-	t_philos        *philos;
+	t_philos	*philos;
 
 	philos = (t_philos *)man->philos;
 	if (get_end_flag(philos))
@@ -89,8 +89,6 @@ void	philo_think(t_man *man)
 			helper_sleep(10);
 		}
 	}
-	//else if (((int)(man->cnt_eat % 2) != (man->id % 2)))
-		//helper_sleep((philos->time_slp + philos->time_eat) / 10);
 	if (get_end_flag(philos))
 		return ;
 }

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 12:06:04 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 02:29:30 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	create_thread(t_philos *philos)
 	int	i;
 
 	i = philos->num - 1;
-	//i = 0;
-	while (i < philos->num )
+	while (i < philos->num)
 	{
 		if (pthread_create(&(philos->mans[i].thread), NULL, \
 							philo_loop, (void *)&(philos->mans[i])))
@@ -50,7 +49,7 @@ int	create_thread(t_philos *philos)
 			return (false);
 		}
 		if (philos->num == 1)
-			break;
+			break ;
 		if (i == philos->num - 1)
 		{
 			usleep(300);
@@ -58,7 +57,6 @@ int	create_thread(t_philos *philos)
 		}
 		else if (i == philos->num - 2)
 			break ;
-		else 
 		i++;
 	}
 	return (true);
