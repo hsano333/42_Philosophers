@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 00:23:37 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 02:09:11 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	check_death(t_philos *philos, int i)
 	{
 		gettimeofday(&time, NULL);
 		time_since_eat = diff_time(time, philos->mans[i].timestamp_eating);
-		if (time_since_eat > (size_t)philos->time_die * 1000)
+		if (time_since_eat / 1000 > (size_t)philos->time_die)
 		{
 			//put_logs(&(philos->mans[i]), DIE);
 			//wait_exiting_thread(philos);
@@ -70,11 +70,12 @@ static int	check_death(t_philos *philos, int i)
 
 void	check_stop(t_philos *philos, int i)
 {
+	//printf("check_stop test No.1\n");
 	while (1)
 	{
 		if (check_eat_cnt(philos, i))
 		{
-			printf("kill check eat death No.1 i=%d, n_pid=%d\n", i, philos->mans[i].n_pid);
+			//printf("kill check eat death No.1 i=%d, n_pid=%d\n", i, philos->mans[i].n_pid);
 			kill(philos->mans[i].n_pid, 3);
 			//set_end_flag(philos, true);
 			//wait_exiting_thread(philos);
@@ -82,8 +83,9 @@ void	check_stop(t_philos *philos, int i)
 		}
 		if (check_death(philos, i))
 		{
-			printf("kill check death No.2 philos->np_pid:%d, philos->pp_pid:%d\n", philos->np_pid, philos->pp_pid);
-			kill(philos->np_pid, 2);
+			//printf("kill check death No.2 philos->np_pid:%d, philos->pp_pid:%d\n", philos->np_pid, philos->pp_pid);
+			kill(philos->mans[i].n_pid, 3);
+			//printf("kill check death No.3 philos->np_pid:%d, philos->pp_pid:%d\n", i, philos->mans[i].n_pid);
 			put_logs(&(philos->mans[i]), DIE);
 			kill(philos->pp_pid, 2);
 			clear_all(philos);
@@ -91,5 +93,5 @@ void	check_stop(t_philos *philos, int i)
 		}
 		usleep(2000);
 	}
-	printf("kill check death No.3 philos->np_pid:%d, philos->pp_pid:%d\n", philos->np_pid, philos->pp_pid);
+	//printf("kill check death No.3 philos->np_pid:%d, philos->pp_pid:%d\n", philos->np_pid, philos->pp_pid);
 }

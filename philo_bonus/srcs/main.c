@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 21:32:05 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 19:36:21 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 01:24:26 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	main(int argc, char **argv)
 	t_philos	*philos;
 	pid_t		pid;
 	int			status;
+	int	i;
+	//int	status;
 
+	i = 0;
 	pid = fork();
 	if (pid < 0)
 		return (1);
@@ -30,9 +33,17 @@ int	main(int argc, char **argv)
 		if (philos->np_pid == 0)
 		{
 			create_thread_for_process(philos);
-			printf("before waitpid No.1 philos->pp_pidi = %d\n",philos->pp_pid);
-			waitpid(philos->pp_pid, 0 , 0);
-			printf("after waitpid No.2\n");
+			//printf("before waitpid No.1 philos->pp_pidi = %d\n",philos->pp_pid);
+			//waitpid(philos->pp_pid, 0 , 0);
+			while (i < philos->num)
+			{
+			//	printf("before waitpid i=%d philos->n_pidi = %d\n",i, philos->mans[i].n_pid);
+				waitpid(philos->mans[i].n_pid, &status, 0);
+				i++;
+
+			}
+
+			//printf("after waitpid No.2\n");
 			//create_process(philos);
 			clear_all(philos);
 		}

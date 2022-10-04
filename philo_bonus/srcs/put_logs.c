@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:16:21 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 12:52:19 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 01:55:18 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static void	put_logs_selected(t_man *man, enum e_strs mode)
 	gettimeofday(&now, NULL);
 	diff = diff_time(now, philos->boot_time) / 1000;
 	if (mode == FORKS)
-		printf("%.8zu %d has taken a fork\n", diff, man->id);
+		printf("%.10zu %d has taken a fork\n", diff, man->id);
 	else if (mode == EAT)
-		printf("%.8zu %d is eating\n", diff, man->id);
+		printf("%.10zu %d is eating\n", diff, man->id);
 	else if (mode == SLEEP)
-		printf("%.8zu %d is sleeping\n", diff, man->id);
+		printf("%.10zu %d is sleeping\n", diff, man->id);
 	else if (mode == THINK)
-		printf("%.8zu %d is thinking\n", diff, man->id);
+		printf("%.10zu %d is thinking\n", diff, man->id);
 	else if (mode == DIE)
-		printf("%.8zu %d died\n", diff, man->id);
+		printf("%.10zu %d died\n", diff, man->id);
 }
 
 void	put_logs(t_man *man, enum e_strs mode)
