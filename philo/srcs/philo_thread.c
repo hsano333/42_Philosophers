@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:29:30 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 05:26:14 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	create_thread(t_philos *philos)
 		}
 		else if (i == philos->num - 2)
 			break ;
-		i++;
+		else
+			i++;
 	}
 	return (true);
 }
