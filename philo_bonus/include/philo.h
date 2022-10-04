@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 04:01:58 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 02:39:13 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ typedef struct s_man
 	size_t			cnt_eat;
 	t_time			timestamp_eating;
 	pthread_t		thread;
-	//pthread_mutex_t	mutex_man;
-	//pthread_mutex_t	mutex_forks;
-	//pthread_mutex_t	*mutex_left;
-	//pthread_mutex_t	*mutex_right;
 	void			*philos;
 }	t_man;
 
@@ -61,8 +57,6 @@ typedef struct s_philos
 	pid_t			pp_pid;
 	t_man			*mans;
 	t_time			boot_time;
-	//pthread_mutex_t	mutex_print;
-	//pthread_mutex_t	mutex_check_death;
 	char			*sem_name;
 	sem_t			*sem_fd;
 	pthread_t		thread;

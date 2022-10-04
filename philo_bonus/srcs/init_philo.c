@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 21:12:56 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 02:36:50 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,42 +63,26 @@ static void	copy_man(t_philos *philos, int i)
 {
 	philos->mans[i].id = i + 1;
 	philos->mans[i].philos = (void *)philos;
-	//philos->mans[i].mutex_right = &(philos->mans[i].mutex_forks);
 	philos->mans[i].timestamp_eating = philos->boot_time;
-	//if (i > 0)
-		//philos->mans[i].mutex_left = &(philos->mans[i - 1].mutex_forks);
-	//if (i == philos->num - 1)
-		//philos->mans[0].mutex_left = &(philos->mans[i].mutex_forks);
 }
 
 static int	set_default_value(t_philos *philos)
 {
 	t_time		boot_time;
-	//sem_t		rval;
 
 	philos->end_flag = false;
 	gettimeofday(&boot_time, NULL);
 	philos->boot_time = boot_time;
 	philos->sem_name = "fork11";
-	//philos->sem_name = NULL;
 	philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
 	sem_close(philos->sem_fd);
 	sem_unlink(philos->sem_name);
 	philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
-	//philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
-	//printf("philos->sem_fd=%d\n", *philos->sem_fd);
 	if (philos->sem_fd == SEM_FAILED)
 	{
-		printf("kill_process No.1\n");
 		kill_process(philos);
 		return (false);
 	}
-	//pthread_mutex_init(&(philos->mutex_print), NULL);
-	//if (errno == EINVAL || errno == ENOMEM)
-		//return (false);
-	//pthread_mutex_init(&(philos->mutex_check_death), NULL);
-	//if (errno == EINVAL || errno == ENOMEM)
-		//return (false);
 	return (true);
 }
 
@@ -111,21 +95,11 @@ t_philos	*init_philos(int argc, char **argv)
 	if (!philos)
 		return (NULL);
 	set_default_value(philos);
-	//if (!set_default_value(philos))
-		//pthread_mutex_init(&(philos->mutex_check_death), NULL);
 	i = 0;
 	while (i < philos->num)
 	{
-		//pthread_mutex_init(&(philos->mans[i].mutex_forks), NULL);
-		//if (errno == EINVAL || errno == ENOMEM)
-			//break ;
-		//pthread_mutex_init(&(philos->mans[i].mutex_man), NULL);
-		//if (errno == EINVAL || errno == ENOMEM)
-			//break ;
 		copy_man(philos, i);
 		i++;
 	}
-	//if (i != philos->num)
-		//philos = clear_all(philos);
 	return (philos);
 }
