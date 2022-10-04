@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:16:21 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:31:30 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 03:38:57 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	put_logs_selected(t_man *man, enum e_strs mode)
 	philos = (t_philos *)man->philos;
 	gettimeofday(&now, NULL);
 	diff = diff_time(now, philos->boot_time) / 1000;
+	sem_wait(philos->sem_put_fd);
 	if (mode == FORKS)
 		printf("%.10zu %d has taken a fork\n", diff, man->id);
 	else if (mode == EAT)
@@ -31,6 +32,8 @@ static void	put_logs_selected(t_man *man, enum e_strs mode)
 		printf("%.10zu %d is thinking\n", diff, man->id);
 	else if (mode == DIE)
 		printf("%.10zu %d died\n", diff, man->id);
+	if (mode != DIE)
+		sem_post(philos->sem_put_fd);
 }
 
 void	put_logs(t_man *man, enum e_strs mode)

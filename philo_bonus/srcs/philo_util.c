@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:36:07 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 04:00:05 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_philos	*clear_all(t_philos *philos)
 {
 	sem_close(philos->sem_fd);
 	sem_unlink(philos->sem_name);
+	sem_close(philos->sem_put_fd);
+	sem_unlink(philos->sem_put_name);
 	free(philos->mans);
 	free(philos);
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:39:13 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 04:00:09 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_philos
 	t_time			boot_time;
 	char			*sem_name;
 	sem_t			*sem_fd;
+	char			*sem_put_name;
+	sem_t			*sem_put_fd;
 	pthread_t		thread;
 }	t_philos;
 
