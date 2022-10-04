@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 03:41:26 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 16:42:14 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ int	check_eat_cnt(t_philos *philos, int i)
 		return (false);
 	//i = 0;
 	//while (i < philos->num)
-	{
-		if (get_eat_cnt(&(philos->mans[i])) < (size_t)(philos->must_eat_num))
-			return (false);
+	//{
+	if (get_eat_cnt(&(philos->mans[i])) < (size_t)(philos->must_eat_num))
+		return (false);
 		//i++;
-	}
+	//}
 	return (true);
 }
 
@@ -59,7 +59,7 @@ static int	check_death(t_philos *philos, int i)
 		time_since_eat = diff_time(time, philos->mans[i].timestamp_eating);
 		if (time_since_eat > (size_t)philos->time_die * 1000)
 		{
-			put_logs(&(philos->mans[i]), DIE);
+			//put_logs(&(philos->mans[i]), DIE);
 			//wait_exiting_thread(philos);
 			return (true);
 		}
@@ -74,6 +74,7 @@ void	check_stop(t_philos *philos, int i)
 	{
 		if (check_eat_cnt(philos, i))
 		{
+			printf("check eat death No.1 i=%d, n_pid=%d\n", i, philos->mans[i].n_pid);
 			kill(philos->mans[i].n_pid, 2);
 			//set_end_flag(philos, true);
 			//wait_exiting_thread(philos);
@@ -81,23 +82,11 @@ void	check_stop(t_philos *philos, int i)
 		}
 		if (check_death(philos, i))
 		{
+			printf("check death No.2\n");
 			kill(philos->np_pid, 2);
-			//kill(philos->mans[i].n_pid, 2);
-			//kill(philos->mans[i].pid, 2);
-			set_end_flag(philos, true);
-			//break ;
-		//}
-		////if (get_end_flag(philos))
-		//{
-			//printf("kill test No.1\n");
-			//kill(philos->mans[i].pid, 2);
-			//kill(philos->mans[i].pid, 159);
-			//if (philos->must_eat_num == 0)
-			//pthread_detach();
-			//put_logs(&(philos->mans[i]), DIE);
-			clear_all(philos);
+			put_logs(&(philos->mans[i]), DIE);
 			kill(philos->pp_pid, 2);
-			//kill_process(philos);
+			clear_all(philos);
 			exit(0);
 		}
 		usleep(2000);

@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:52:52 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 03:51:40 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 18:56:45 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	create_notice_process(t_philos *philos)
 		while (i < philos->num)
 		{
 			philos->mans[i].n_pid = fork();
+			printf("fork i=%d, npid=%d", i, philos->mans[i].n_pid);
 			if (philos->mans[i].n_pid < 0)
 				kill_process(philos);
 			else if (philos->mans[i].n_pid == 0)
@@ -37,6 +38,16 @@ void	create_notice_process(t_philos *philos)
 		}
 		i = 0;
 		while (i < philos->num)
+		{
+			printf("waitpid after No.0\n");
 			waitpid(philos->mans[i].n_pid, &status, 0);
+			printf("waitpid after No.1\n");
+		}
+	}
+	else
+	{
+		//printf("notice parent No.1\n");
+		//waitpid(philos->np_pid, &status, 0);
+		//printf("notice parent No.2\n");
 	}
 }

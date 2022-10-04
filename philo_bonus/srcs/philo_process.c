@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/04 04:06:47 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/04 18:34:05 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	wait_child(t_philos *philos)
 	i = 0;
 	while (i < philos->num)
 	{
+		printf("i=%d, npid=%d", i,philos->mans[i].n_pid );
 		waitpid(philos->mans[i].n_pid, &status, 0);
 		i++;
 	}
