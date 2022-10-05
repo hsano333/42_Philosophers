@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 20:40:04 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 23:20:08 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,11 @@ void	check_stop(t_philos *philos)
 		}
 		philo_no = check_death(philos);
 		if (philo_no > 0)
+		{
+			put_logs(&(philos->mans[philo_no - 1]), DIE);
 			break ;
+		}
 		usleep(100);
 	}
-	put_logs(&(philos->mans[philo_no - 1]), DIE);
 	wait_exiting_thread(philos);
 }
