@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:24:19 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 20:40:04 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ static int	check_death(t_philos *philos)
 		if (time_since_eat / 1000 > (size_t)philos->time_die)
 		{
 			set_end_flag(philos, true);
-			put_logs(&(philos->mans[i]), DIE);
-			wait_exiting_thread(philos);
-			return (true);
+			return (i + 1);
 		}
 		i++;
 	}
@@ -71,16 +69,20 @@ static int	check_death(t_philos *philos)
 
 void	check_stop(t_philos *philos)
 {
+	int	philo_no;
+
 	while (1)
 	{
 		if (check_eat_cnt(philos))
 		{
 			set_end_flag(philos, true);
-			wait_exiting_thread(philos);
 			break ;
 		}
-		if (check_death(philos))
+		philo_no = check_death(philos);
+		if (philo_no > 0)
 			break ;
 		usleep(100);
 	}
+	put_logs(&(philos->mans[philo_no - 1]), DIE);
+	wait_exiting_thread(philos);
 }

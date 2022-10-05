@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 02:28:06 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 22:18:18 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ t_philos	*clear_all(t_philos *philos)
 	pthread_mutex_destroy(&philos->mutex_print);
 	pthread_mutex_destroy(&philos->mutex_check_death);
 	while (i < philos->num)
+	{
 		pthread_mutex_destroy(&(philos->mans[i++].mutex_forks));
+		pthread_mutex_destroy(&(philos->mans[i++].mutex_man));
+	}
 	free(philos->mans);
 	free(philos);
 	return (NULL);
@@ -45,11 +48,12 @@ size_t	diff_time(t_time now, t_time base)
 void	wait_exiting_thread(t_philos *philos)
 {
 	int	i;
+	int	rval;
 
 	i = 0;
 	while (i < philos->num)
 	{
-		pthread_detach(philos->mans[i].thread);
+		rval = pthread_join(philos->mans[i].thread, NULL);
 		i++;
 	}
 }
@@ -62,7 +66,7 @@ void	helper_sleep(int mtime)
 	gettimeofday(&begin, NULL);
 	while (1)
 	{
-		usleep(100);
+		usleep(125);
 		gettimeofday(&now, NULL);
 		if ((diff_time(now, begin) / 1000) >= (size_t)mtime)
 			break ;

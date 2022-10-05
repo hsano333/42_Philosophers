@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/03 00:47:22 by hsano            ###   ########.fr       */
+/*   Updated: 2022/10/05 16:56:25 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_philos	*parse_arg(int argc, char **argv)
 	if (argc == 6)
 		philos->must_eat_num = ft_atoi(argv[5], &(error[4]));
 	philos->mans = (t_man *)malloc(sizeof(t_man) * philos->num);
-	if (has_error(error, argc) || !philos->mans || philos->num < 0 \
+	if (has_error(error, argc) || !philos->mans || philos->num <= 0 \
 			|| philos->time_die < 0 || philos->time_eat < 0 \
 			|| philos->time_slp < 0 || philos->must_eat_num < 0)
 	{
