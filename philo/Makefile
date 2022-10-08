@@ -25,8 +25,8 @@ LFLAGS	:= $(addprefix -L,$(LIBDIRS))
 LIBS	:= 
 
 CC	:= cc
-CFLAGS	:= -Wall -Wextra -Werror -pthread -fsanitize=thread -g
-#CFLAGS	:= -Wall -Wextra -Werror
+#CFLAGS	:= -Wall -Wextra -Werror -pthread -fsanitize=thread -g
+CFLAGS	:= -Wall -Wextra -Werror
 LDFLAGS := $(IFLAGS) $(LFLAGS)
 
 all:
