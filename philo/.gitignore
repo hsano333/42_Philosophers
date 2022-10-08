@@ -1,0 +1,10 @@
+*.a
+*.o
+*.d
+*.out
+*.swp
+philo
+philo_bonus
+
+
+
