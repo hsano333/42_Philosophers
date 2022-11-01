@@ -9,7 +9,7 @@ LIBFT		:= $(LIBFTDIR)/$(LIBFTNAME)
 OBJDIR		:= ./obj
 
 SRCDIR	:= ./srcs/
-SRC	:= ft_atoi.c init_philo.c philo_util.c philo_thread.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c
+SRC	:= ft_atoi.c init_philo.c philo_util.c philo_thread.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c philo_flag_accssesor.c
 ENTRY	:= main.c
 SRC	+= $(ENTRY)
 
@@ -25,8 +25,8 @@ LFLAGS	:= $(addprefix -L,$(LIBDIRS))
 LIBS	:= 
 
 CC	:= cc
-#CFLAGS	:= -Wall -Wextra -Werror -pthread -fsanitize=thread -g
-CFLAGS	:= -Wall -Wextra -Werror
+CFLAGS	:= -Wall -Wextra -Werror -lpthread -fsanitize=thread -g
+#CFLAGS	:= -Wall -Wextra -Werror
 LDFLAGS := $(IFLAGS) $(LFLAGS)
 
 all:

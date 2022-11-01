@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:43:35 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 05:13:29 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/01 22:47:21 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,15 @@ void	set_eat_time(t_man *man)
 	t_time	time;
 
 	pthread_mutex_lock(&man->mutex_man);
-	gettimeofday(&time, NULL);
-	man->timestamp_eating = time;
+	//if (time == NULL)
+	//{
+		gettimeofday(&time, NULL);
+		man->timestamp_eating = time;
+	//}
+	//else
+	//{
+		//man->timestamp_eating = *time;
+	//}
 	pthread_mutex_unlock(&man->mutex_man);
 }
 
@@ -75,4 +82,18 @@ size_t	get_neighbor_eat_cnt(t_man *man)
 	if (prev_eat_cnt >= next_eat_cnt)
 		return (next_eat_cnt);
 	return (prev_eat_cnt);
+}
+
+size_t	get_priority_eat_cnt(t_man *man)
+{
+	t_philos	*philos;
+	philos = (t_philos *)man->philos;
+	if (man->id == 1)
+		return (INT_MAX);
+	else if (man->id == 2)
+		return (get_eat_cnt(&(philos->mans[philos->num - 1])));
+	else
+		return (get_eat_cnt(&(philos->mans[man->id - 2 -1])));
+
+
 }

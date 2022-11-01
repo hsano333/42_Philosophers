@@ -6,28 +6,11 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 23:20:08 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/01 23:18:09 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	set_end_flag(t_philos *philos, int flag)
-{
-	pthread_mutex_lock(&philos->mutex_check_death);
-	philos->end_flag = flag;
-	pthread_mutex_unlock(&philos->mutex_check_death);
-}
-
-int	get_end_flag(t_philos *philos)
-{
-	int	flag;
-
-	pthread_mutex_lock(&philos->mutex_check_death);
-	flag = philos->end_flag;
-	pthread_mutex_unlock(&philos->mutex_check_death);
-	return (flag);
-}
 
 int	check_eat_cnt(t_philos *philos)
 {
@@ -56,7 +39,7 @@ static int	check_death(t_philos *philos)
 	while (i < philos->num)
 	{
 		gettimeofday(&time, NULL);
-		time_since_eat = diff_time(time, philos->mans[i].timestamp_eating);
+		time_since_eat = diff_time(time, get_eat_time(&(philos->mans[i])));
 		if (time_since_eat / 1000 > (size_t)philos->time_die)
 		{
 			set_end_flag(philos, true);
@@ -84,7 +67,7 @@ void	check_stop(t_philos *philos)
 			put_logs(&(philos->mans[philo_no - 1]), DIE);
 			break ;
 		}
-		usleep(100);
+		usleep(125);
 	}
 	wait_exiting_thread(philos);
 }

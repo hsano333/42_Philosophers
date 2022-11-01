@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/08 15:50:38 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/01 22:01:26 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ size_t	diff_time(t_time now, t_time base)
 void	wait_exiting_thread(t_philos *philos)
 {
 	int	i;
-	int	rval;
+	//int	rval;
 
 	i = 0;
 	if (philos->num == 1)
@@ -57,7 +57,7 @@ void	wait_exiting_thread(t_philos *philos)
 	{
 		while (i < philos->num)
 		{
-			rval = pthread_join(philos->mans[i].thread, NULL);
+			pthread_join(philos->mans[i].thread, NULL);
 			i++;
 		}
 	}
@@ -71,9 +71,24 @@ void	helper_sleep(int mtime)
 	gettimeofday(&begin, NULL);
 	while (1)
 	{
-		usleep(125);
+		usleep(100);
 		gettimeofday(&now, NULL);
 		if ((diff_time(now, begin) / 1000) >= (size_t)mtime)
+			break ;
+	}
+}
+
+void	helper_usleep(int utime)
+{
+	t_time	begin;
+	t_time	now;
+
+	gettimeofday(&begin, NULL);
+	while (1)
+	{
+		usleep(20);
+		gettimeofday(&now, NULL);
+		if ((diff_time(now, begin)) >= (size_t)utime)
 			break ;
 	}
 }

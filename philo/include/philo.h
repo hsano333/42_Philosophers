@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/09/29 00:51:57 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/01 21:57:53 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct timeval	t_time;
 typedef struct s_man
 {
 	int				id;
+	int				is_last;
 	size_t			cnt_eat;
 	t_time			timestamp_eating;
 	pthread_t		thread;
@@ -49,11 +50,14 @@ typedef struct s_philos
 	int				time_eat;
 	int				time_slp;
 	int				must_eat_num;
+	int				start_flag;
 	int				end_flag;
+	int				flag[2];
 	t_man			*mans;
 	t_time			boot_time;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	mutex_check_death;
+	pthread_mutex_t	mutex_check_start;
 }	t_philos;
 
 t_philos	*init_philos(int argc, char **argv);
@@ -67,12 +71,16 @@ void		philo_sleep(t_man *man);
 void		philo_think(t_man *man);
 void		wait_exiting_thread(t_philos *philos);
 void		set_end_flag(t_philos *philos, int flag);
-int			get_end_flag(t_philos *philos);
+int		get_end_flag(t_philos *philos);
+void		set_start_flag(t_philos *philos, int flag);
+int		get_start_flag(t_philos *philos);
 void		increment_eat_cnt(t_man *man);
 size_t		get_eat_cnt(t_man *man);
 t_time		get_eat_time(t_man *man);
 void		set_eat_time(t_man *man);
 void		helper_sleep(int mtime);
+void		helper_usleep(int utime);
 size_t		get_neighbor_eat_cnt(t_man *man);
+size_t		get_priority_eat_cnt(t_man *man);
 
 #endif
