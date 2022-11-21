@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:47:51 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/21 13:10:32 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:15:11 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ size_t	get_priority_eat_cnt(t_man *man)
 	else if (man->id == 1)
 		return (get_eat_cnt(&(philos->mans[philos->num - 1])));
 	else
-		return (get_eat_cnt(&(philos->mans[man->id - 2 -1])));
+		return (get_eat_cnt(&(philos->mans[man->id - 2 - 1])));
 }

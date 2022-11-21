@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:13:31 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/21 13:09:32 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:14:41 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	philo_sleep(t_man *man)
 void	philo_think(t_man *man)
 {
 	t_philos	*philos;
-	int		cnt;
+	int			cnt;
 
 	philos = (t_philos *)man->philos;
 	if (get_end_flag(philos))
