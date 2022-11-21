@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:44:32 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/21 12:23:56 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/22 02:28:14 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	*philo_loop(void *man_arg)
 
 int	next_i(t_philos *philos, int i)
 {
-	if (i == philos->num - 1)
+	if (i == philos->num - 1 && i == 1)
+		return (0);
+	else if (i == philos->num - 1)
 		return (1);
 	else if (philos->num % 2 == 0)
 	{
