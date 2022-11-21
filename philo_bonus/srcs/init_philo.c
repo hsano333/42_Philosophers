@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/06 01:50:11 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/22 02:50:46 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,23 @@ static int	set_default_value(t_philos *philos)
 	philos->end_flag = false;
 	gettimeofday(&boot_time, NULL);
 	philos->boot_time = boot_time;
-	philos->sem_name = "fork";
+	philos->sem_name = "philo_fork";
+	//philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
+	//sem_close(philos->sem_fd);
+	//sem_unlink(philos->sem_name);
 	philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
-	sem_close(philos->sem_fd);
+	philos->sem_put_name = "philo_put";
+	//philos->sem_put_fd = sem_open(philos->sem_put_name, O_CREAT, 0777, 1);
+	//sem_close(philos->sem_put_fd);
+	//sem_unlink(philos->sem_put_name);
+	philos->sem_put_fd = sem_open(philos->sem_put_name, O_CREAT, 0777, 1);
+	philos->sem_end_name = "philo_end";
+	philos->sem_end_fd = sem_open(philos->sem_end_name, O_CREAT, 0777, 1);
 	sem_unlink(philos->sem_name);
-	philos->sem_fd = sem_open(philos->sem_name, O_CREAT, 0777, philos->num);
-	philos->sem_put_name = "put";
-	philos->sem_put_fd = sem_open(philos->sem_put_name, O_CREAT, 0777, 1);
-	sem_close(philos->sem_put_fd);
 	sem_unlink(philos->sem_put_name);
-	philos->sem_put_fd = sem_open(philos->sem_put_name, O_CREAT, 0777, 1);
-	if (philos->sem_put_fd == SEM_FAILED || philos->sem_fd == SEM_FAILED)
+	sem_unlink(philos->sem_end_name);
+	if (philos->sem_put_fd == SEM_FAILED || philos->sem_fd == SEM_FAILED \
+			|| philos->sem_end_fd == SEM_FAILED)
 	{
 		kill_process(philos);
 		return (false);

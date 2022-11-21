@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:41:26 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 04:14:21 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/22 02:47:54 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 void	set_end_flag(t_philos *philos, int flag)
 {
+	sem_wait(philos->sem_end_fd);
 	philos->end_flag = flag;
+	sem_post(philos->sem_end_fd);
 }
 
 int	get_end_flag(t_philos *philos)
 {
 	int	flag;
 
+	sem_wait(philos->sem_end_fd);
 	flag = philos->end_flag;
+	sem_post(philos->sem_end_fd);
 	return (flag);
 }
 
