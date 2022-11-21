@@ -25,7 +25,7 @@ LIBS	:=
 
 CC	:= cc
 CFLAGS	:= -Wall -Wextra -Werror
-LDFLAGS := $(IFLAGS) $(LFLAGS)
+LDFLAGS := $(IFLAGS) $(LFLAGS) -pthread
 
 all:
 	@make $(NAME)	
