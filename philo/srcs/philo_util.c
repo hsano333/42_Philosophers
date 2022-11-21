@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/01 22:01:26 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/21 12:26:05 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ size_t	diff_time(t_time now, t_time base)
 void	wait_exiting_thread(t_philos *philos)
 {
 	int	i;
-	//int	rval;
 
 	i = 0;
 	if (philos->num == 1)

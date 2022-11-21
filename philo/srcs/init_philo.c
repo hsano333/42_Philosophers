@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:03:57 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/01 23:08:45 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/21 12:26:58 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	copy_man(t_philos *philos, int i)
 		philos->mans[i].is_last = true;
 	philos->mans[i].philos = (void *)philos;
 	philos->mans[i].mutex_right = &(philos->mans[i].mutex_forks);
-	//set_eat_time(&(philos->mans[i]), &(philos->boot_time));
 	philos->mans[i].timestamp_eating = philos->boot_time;
 	if (i > 0)
 		philos->mans[i].mutex_left = &(philos->mans[i - 1].mutex_forks);

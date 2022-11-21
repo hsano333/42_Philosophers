@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 21:32:05 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/01 22:50:46 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/21 12:25:13 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int argc, char **argv)
 		return (1);
 	gettimeofday(&boot_time, NULL);
 	philos->boot_time = boot_time;
-	//printf("create thread\n");
 	if (create_thread(philos))
 		check_stop(philos);
 	clear_all(philos);

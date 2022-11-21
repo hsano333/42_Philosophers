@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/01 21:57:53 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/21 12:26:44 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void		philo_sleep(t_man *man);
 void		philo_think(t_man *man);
 void		wait_exiting_thread(t_philos *philos);
 void		set_end_flag(t_philos *philos, int flag);
-int		get_end_flag(t_philos *philos);
+int			get_end_flag(t_philos *philos);
 void		set_start_flag(t_philos *philos, int flag);
-int		get_start_flag(t_philos *philos);
+int			get_start_flag(t_philos *philos);
 void		increment_eat_cnt(t_man *man);
 size_t		get_eat_cnt(t_man *man);
 t_time		get_eat_time(t_man *man);
