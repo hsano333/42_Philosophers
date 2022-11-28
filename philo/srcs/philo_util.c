@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:00:42 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/21 12:26:05 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/28 12:39:47 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ t_philos	*clear_all(t_philos *philos)
 	pthread_mutex_destroy(&philos->mutex_check_death);
 	while (i < philos->num)
 	{
-		pthread_mutex_destroy(&(philos->mans[i++].mutex_forks));
-		pthread_mutex_destroy(&(philos->mans[i++].mutex_man));
+		pthread_mutex_destroy(&(philos->mans[i].mutex_forks));
+		pthread_mutex_destroy(&(philos->mans[i].mutex_man));
+		i++;
 	}
 	free(philos->mans);
+	pthread_mutex_destroy(&(philos->mutex_print));
+	pthread_mutex_destroy(&(philos->mutex_check_death));
 	free(philos);
 	return (NULL);
 }
@@ -50,15 +53,10 @@ void	wait_exiting_thread(t_philos *philos)
 	int	i;
 
 	i = 0;
-	if (philos->num == 1)
-		pthread_detach(philos->mans[i].thread);
-	else
+	while (i < philos->num)
 	{
-		while (i < philos->num)
-		{
-			pthread_join(philos->mans[i].thread, NULL);
-			i++;
-		}
+		pthread_join(philos->mans[i].thread, NULL);
+		i++;
 	}
 }
 

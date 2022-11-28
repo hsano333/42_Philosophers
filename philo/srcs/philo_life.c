@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:13:31 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/21 14:14:41 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/28 11:55:37 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ static void	philo_eat_odd(t_man *man)
 	philos = (t_philos *)man->philos;
 	if (get_end_flag(philos))
 		return ;
+	if (philos->num == 1)
+	{
+		put_logs(man, FORKS);
+		helper_sleep(philos->time_die);
+		return ;
+	}
 	pthread_mutex_lock(man->mutex_right);
 	put_logs(man, FORKS);
 	pthread_mutex_lock(man->mutex_left);
@@ -39,6 +45,12 @@ void	philo_eat_even(t_man *man)
 	philos = (t_philos *)man->philos;
 	if (get_end_flag(philos))
 		return ;
+	if (philos->num == 1)
+	{
+		put_logs(man, FORKS);
+		helper_sleep(philos->time_die);
+		return ;
+	}
 	pthread_mutex_lock(man->mutex_left);
 	put_logs(man, FORKS);
 	pthread_mutex_lock(man->mutex_right);
