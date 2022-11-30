@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:16:21 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/30 12:54:46 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/30 13:04:22 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,16 @@ static void	write_message(t_philos *philos, size_t diff, int id, char *str)
 	char	tmp[256];
 	int		i;
 	int		k;
-	
+
 	if (!ft_itoa_no_memory(diff, TIME_WIDTH + 1, tmp, out))
 		set_end_flag(philos, true);
-	//printf("\n No.1 diff=%zu, out=%s\n",diff,  out);
-	out[TIME_WIDTH] = ' ';
-	i = TIME_WIDTH + 1;
-	//printf("No.2 diff=%zu, i=%d, out=%s\n",diff, i, out);
+	out[TIME_WIDTH + 1] = ' ';
+	i = TIME_WIDTH + 2;
 	i += ft_itoa_no_memory(id, 0, tmp, &(out[i]));
-	//printf("No.3 diff=%zu, i=%d, out=%s\n",diff, i, out);
 	k = -1;
 	out[i] = ' ';
-	//i++;
 	while (str[++k])
 		out[++i] = str[k];
-	//printf("No.4 diff=%zu, i=%d, out=%s\n",diff, i, out);
 	write(1, out, i + 1);
 }
 
