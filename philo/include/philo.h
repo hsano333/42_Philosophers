@@ -6,7 +6,7 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:59:19 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/21 12:26:44 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/30 13:57:28 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ void		helper_sleep(int mtime);
 void		helper_usleep(int utime);
 size_t		get_neighbor_eat_cnt(t_man *man);
 size_t		get_priority_eat_cnt(t_man *man);
+int			ft_itoa_no_memory(size_t n, size_t size, char *p, char *r);
 
 #endif

@@ -9,7 +9,7 @@ LIBFT		:= $(LIBFTDIR)/$(LIBFTNAME)
 OBJDIR		:= ./obj
 
 SRCDIR	:= ./srcs/
-SRC	:= ft_atoi.c init_philo.c philo_util.c philo_thread.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c philo_flag_accssesor.c philo_neighbor_eat_cnt.c
+SRC	:= ft_atoi.c init_philo.c philo_util.c philo_thread.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c philo_flag_accssesor.c philo_neighbor_eat_cnt.c ft_itoa_no_memmory.c
 ENTRY	:= main.c
 SRC	+= $(ENTRY)
 
