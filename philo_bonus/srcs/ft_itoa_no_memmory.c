@@ -6,7 +6,7 @@
 /*   By: hsano </var/mail/hsano>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:37:20 by hsano             #+#    #+#             */
-/*   Updated: 2022/11/30 13:08:39 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/30 13:17:21 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,26 @@ static size_t	get_count(char *p, size_t n)
 	return (cnt);
 }
 
-static int	zero_value(char *r)
+static int	zero_value(char *r, size_t size)
 {
-	r[0] = '0';
-	r[1] = '\0';
-	return (1);
+	size_t	i;
+
+	i = 0;
+	if (size == 0)
+	{
+		r[0] = '0';
+		r[1] = '\0';
+	}
+	else
+	{
+		while (i < size)
+		{
+			r[i] = '0';
+			i++;
+		}
+		r[i] = '\0';
+	}
+	return (true);
 }
 
 int	ft_itoa_no_memory(size_t n, size_t size, char *p, char *r)
@@ -45,7 +60,7 @@ int	ft_itoa_no_memory(size_t n, size_t size, char *p, char *r)
 	size_t	cnt;
 
 	if (n == 0)
-		return (zero_value(r));
+		return (zero_value(r, size));
 	cnt = get_count(p, n);
 	if (size > cnt)
 		r[size - 1] = '\0';
