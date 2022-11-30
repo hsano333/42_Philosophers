@@ -6,11 +6,36 @@
 /*   By: hsano <hsano@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:16:21 by hsano             #+#    #+#             */
-/*   Updated: 2022/10/05 03:38:57 by hsano            ###   ########.fr       */
+/*   Updated: 2022/11/30 12:54:46 by hsano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#define TIME_WIDTH 19
+
+static void	write_message(t_philos *philos, size_t diff, int id, char *str)
+{
+	char	out[256];
+	char	tmp[256];
+	int		i;
+	int		k;
+	
+	if (!ft_itoa_no_memory(diff, TIME_WIDTH + 1, tmp, out))
+		set_end_flag(philos, true);
+	//printf("\n No.1 diff=%zu, out=%s\n",diff,  out);
+	out[TIME_WIDTH] = ' ';
+	i = TIME_WIDTH + 1;
+	//printf("No.2 diff=%zu, i=%d, out=%s\n",diff, i, out);
+	i += ft_itoa_no_memory(id, 0, tmp, &(out[i]));
+	//printf("No.3 diff=%zu, i=%d, out=%s\n",diff, i, out);
+	k = -1;
+	out[i] = ' ';
+	//i++;
+	while (str[++k])
+		out[++i] = str[k];
+	//printf("No.4 diff=%zu, i=%d, out=%s\n",diff, i, out);
+	write(1, out, i + 1);
+}
 
 static void	put_logs_selected(t_man *man, enum e_strs mode)
 {
@@ -23,15 +48,15 @@ static void	put_logs_selected(t_man *man, enum e_strs mode)
 	diff = diff_time(now, philos->boot_time) / 1000;
 	sem_wait(philos->sem_put_fd);
 	if (mode == FORKS)
-		printf("%.10zu %d has taken a fork\n", diff, man->id);
+		write_message(philos, diff, man->id, "has taken a fork\n");
 	else if (mode == EAT)
-		printf("%.10zu %d is eating\n", diff, man->id);
+		write_message(philos, diff, man->id, "is eating\n");
 	else if (mode == SLEEP)
-		printf("%.10zu %d is sleeping\n", diff, man->id);
+		write_message(philos, diff, man->id, "is sleeping\n");
 	else if (mode == THINK)
-		printf("%.10zu %d is thinking\n", diff, man->id);
+		write_message(philos, diff, man->id, "is thinking\n");
 	else if (mode == DIE)
-		printf("%.10zu %d died\n", diff, man->id);
+		write_message(philos, diff, man->id, "died\n");
 	if (mode != DIE)
 		sem_post(philos->sem_put_fd);
 }

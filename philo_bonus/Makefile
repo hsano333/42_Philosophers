@@ -8,7 +8,7 @@ LIBFT		:= $(LIBFTDIR)/$(LIBFTNAME)
 OBJDIR		:= ./obj
 
 SRCDIR	:= ./srcs/
-SRC	:= ft_atoi.c init_philo.c philo_util.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c philo_process.c kill_process.c notice.c
+SRC	:= ft_atoi.c init_philo.c philo_util.c philo_stop.c philo_life.c put_logs.c philo_accssesor.c philo_process.c kill_process.c notice.c ft_itoa_no_memmory.c
 ENTRY	:= main.c
 SRC	+= $(ENTRY)
 
