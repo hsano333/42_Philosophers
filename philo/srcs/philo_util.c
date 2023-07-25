@@ -27,8 +27,6 @@ t_philos	*clear_all(t_philos *philos)
 		i++;
 	}
 	free(philos->mans);
-	pthread_mutex_destroy(&(philos->mutex_print));
-	pthread_mutex_destroy(&(philos->mutex_check_death));
 	free(philos);
 	return (NULL);
 }
